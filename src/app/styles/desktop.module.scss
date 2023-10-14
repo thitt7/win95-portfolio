@@ -1,0 +1,60 @@
+@use 'variables' as *;
+
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+
+}
+
+.space {
+    margin: 0;
+    display: flex;
+    flex-flow: column wrap;
+
+    .icon {
+        color: black;
+        display: flex;
+        flex-direction: column;
+        margin: 1rem;
+        align-items: center;
+        text-align: center;
+        width: fit-content;
+
+        .border {
+            border: 1px solid rgba(0, 0, 0, 0)
+        }
+
+        .text {
+            color: white;
+            margin: 0;
+            font-size: 12px;
+            padding: 2px;
+          }
+          
+        .img {
+            width: $icon-size !important;
+            height: $icon-size !important;
+            margin-bottom: 5px;
+        }
+
+        &:focus {
+            .img {
+                filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg)
+                  saturate(400%) contrast(0.9);
+              }
+
+            .text {
+            background: $icon-highlight;
+            color: white;
+            margin: 0;
+            }
+
+            .border { 
+                border: rgb(255, 255, 127) dotted 1px; 
+            }
+        }
+      }
+}

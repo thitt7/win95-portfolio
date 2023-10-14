@@ -1,0 +1,28 @@
+{
+    "neighborhood": {
+        "title": "neighborhood",
+        "formattedTitle": "Network<br/>Neighborhood",
+        "icon": "w95_18"
+    },
+    "recycle": {
+        "title": "Recycle Bin",
+        "formattedTitle": "Recycle Bin",
+        "icon": "w95_32",
+        "icon-full": "w95_33"
+    },
+    "drive": {
+        "title": "(C)",
+        "formattedTitle": "(C)",
+        "icon": "w95_9"
+    },
+    "cpanel": {
+        "title": "Control Panel",
+        "formattedTitle": "Control Panel",
+        "icon": "w95_36"
+    },
+    "folder": {
+        "title": "New Folder",
+        "formattedTitle": "New Folder",
+        "icon": "w95_4"
+    }
+}
