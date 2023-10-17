@@ -1,28 +1,45 @@
 {
     "neighborhood": {
-        "title": "neighborhood",
+        "title": "Network Neighborhood",
         "formattedTitle": "Network<br/>Neighborhood",
-        "icon": "w95_18"
+        "icon": "w95_18",
+        "type": "text",
+        "filename": "networkneighborhood.exe",
+        "permissions": "r"
     },
     "recycle": {
         "title": "Recycle Bin",
         "formattedTitle": "Recycle Bin",
         "icon": "w95_32",
-        "icon-full": "w95_33"
+        "icon-full": "w95_33",
+        "type": "text",
+        "filename": "recyclebin.exe",
+        "permissions": "r",
+        "contents": {}
     },
     "drive": {
         "title": "(C)",
         "formattedTitle": "(C)",
-        "icon": "w95_9"
+        "icon": "w95_9",
+        "type": "text",
+        "filename": "drive",
+        "permissions": "r"
     },
     "cpanel": {
         "title": "Control Panel",
         "formattedTitle": "Control Panel",
-        "icon": "w95_36"
+        "icon": "w95_36",
+        "type": "text",
+        "filename": "cpanel.exe",
+        "permissions": "r"
     },
     "folder": {
         "title": "New Folder",
         "formattedTitle": "New Folder",
-        "icon": "w95_4"
+        "icon": "w95_4",
+        "type": "folder",
+        "filename": "newfolder",
+        "permissions": "rw",
+        "contents": {}
     }
 }

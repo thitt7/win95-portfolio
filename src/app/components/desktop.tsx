@@ -4,6 +4,7 @@ import TaskBar from './TaskBar';
 import React, { useState } from 'react';
 import DesktopIcon from './DesktopIcon';
 import { AppBar } from 'react95';
+import ProgramWindow from './Window';
 
 import styles from '../styles/desktop.module.scss';
 
@@ -27,6 +28,7 @@ export function Desktop() {
     <div className={styles.container}>
       <div className={styles.space}>
         <DesktopIcon name={'neighborhood'}/>
+        <ProgramWindow></ProgramWindow>
       </div>
         <TaskBar />
         </div>

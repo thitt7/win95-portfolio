@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { set } from '../reducers/programSlice';
 import Link from 'next/link';
 import programs from '../../../public/programs.json'
 
@@ -16,9 +17,12 @@ const DesktopIcon = ({name}: {name?: string}) => {
 
 
     const [program, setProgram] = useState(programs[`${name as keyof typeof programs}`])
+    const count = useSelector((state) => state.program.value)
+    const dispatch = useDispatch()
 
     const startTask = (e: React.MouseEvent) => {
         setProgram((program) => {return {...program, running: true, windowed: true}})
+        dispatch(set({foo: 'bar'}))
         console.log('hello from task opener')
     }
 
@@ -27,7 +31,7 @@ const DesktopIcon = ({name}: {name?: string}) => {
           <Link href="javascript:void(0)" className={styles.icon} onDoubleClick={startTask}>
               <img className={styles.img} src={`/${program.icon}.ico`} alt="" />
               <div className={styles.border}>
-                  <p className={styles.text} dangerouslySetInnerHTML={{ __html: program.title }}></p>
+                  <p className={styles.text} dangerouslySetInnerHTML={{ __html: program.formattedTitle }}></p>
               </div>
           </Link>
       </>

@@ -1,20 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type Program = {
-    title: string,
-    icon: string,
-    open: boolean,
+// type Program = {
+//     title: string,
+//     icon: string,
+//     open: boolean,
 
-}
+// }
 
-const initialState = {tasks: [], startMenu: [], bin: []}
+const initialState = {tasks: []}
+// const initialCounterState = { counter: 0, showCounter: true };
 
 export const programSlice = createSlice({
   name: 'tasks',
   initialState: initialState,
   reducers: {
     set: (state, action) => {
-      state = {...state, [action.payload]: action.payload}
+      state.tasks.push(action.payload)
     },
   },
 })
