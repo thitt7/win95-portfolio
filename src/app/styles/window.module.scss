@@ -49,7 +49,20 @@
 .resizable {
   position: relative;
 
-  [class*=react-resizable-handle] {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  border: 1px dotted red;
+
+  // [class*=react-resizable-handle] {
+  //   position: absolute;
+  //   width: 10px;
+  //   height: 10px;
+  //   cursor: pointer;
+  //   z-index: 5;
+  // }
+
+  [class*=resizable-] {
     position: absolute;
     width: 10px;
     height: 10px;
