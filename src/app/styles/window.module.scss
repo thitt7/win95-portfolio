@@ -4,16 +4,96 @@
   .window {
     width: 100%;
     height: 100%;
-    min-height: 200px;
+    overflow: hidden;
 
-    &:nth-child(2) {
-        margin: 2rem;
+    * {user-select: none;}
+
+    .controlBtns {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 2px;
+      align-items: center;
+
+      > div {
+        display: flex;
+        align-items: center;
+
+        .min {
+          span {
+            position: absolute;
+            background: black;
+            width: 41%;
+            height: 11%;
+            bottom: 22%;
+            left: 26%;
+          }
+        }
+
+        .max {
+          span {
+            position: absolute;
+            top: 19%;
+            bottom: 19%;
+            left: 24%;
+            right: 24%;
+            box-shadow: rgb(0, 0, 0) 1.5px 0 0 0 inset,
+            rgb(0, 0, 0) 0 3px 0 0 inset,
+            rgb(0, 0, 0) -2px 0 0 0 inset,
+            rgb(0, 0, 0) 0 -1.5px 0 0 inset;
+          }
+        }
+      }
+
+      button {
+        @include win95-border;
+        position: relative;
+        cursor: $pointer, pointer;
+
+        box-sizing: border-box;
+        display: inline-block;
+        background: #c6c6c6;
+        color: #0a0a0a;
+        border: none;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        width: auto;
+        padding: 0 10px;
+        font-size: 1rem;
+        user-select: none;
+        font-family: inherit;
+        padding-left: 0;
+        padding-right: 0;
+        height: 25px;
+        width: 27px;
+        
+      }
     }
 
     .title {
+        padding: 2px;
         display: flex;
+        flex-flow: row nowrap;
         align-items: center;
         justify-content: space-between;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .top {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 5px;
+
+          figure {
+            height: 25px;
+            img {max-height: 100%;}
+          }
+        }
+
+        span {overflow: hidden;}
       }
 
       .close {
@@ -46,98 +126,120 @@
 
   }
 
-.resizable {
-  position: relative;
-
+.container {
   position: absolute;
-  width: 400px;
-  height: 200px;
-  border: 1px dotted red;
+  top: 50%;
+  left: 50%;
 
-  // [class*=react-resizable-handle] {
-  //   position: absolute;
-  //   width: 10px;
-  //   height: 10px;
-  //   cursor: pointer;
-  //   z-index: 5;
+  &:not(:focus-within) {
+    [class*=title] {
+      background: $window-blur-bg;
+      span {color: $window-bg;}
+    }
+  }
+
+  &:focus-within {
+    z-index: 1;
+
+    [class*=title] {
+      background: #060084;
+    }
+  }
+
+  // &:focus {
+  //   z-index: 1;
+  //   border: 3px solid red;
+  //   color: red;
   // }
 
-  [class*=resizable-] {
+  .resizable {
+    position: relative;
+  
     position: absolute;
-    width: 10px;
-    height: 10px;
-    cursor: pointer;
-    z-index: 5;
-  }
-
-  [class$=n], [class$=s] {
-    left: 0;
-    width: 100%;
-    height: 5px;
-    cursor: url(/cursors/Cursor_9.cur), pointer;
-  }
-
-  [class$=e], [class$=w] {
-    height: 100%;
-    width: 5px;
-    cursor: url(/cursors/Cursor_8.cur), pointer;
-  }
-
-  [class$=n] {
-    top: 0;
-  }
-
-  [class$=s] {
-    bottom: 0;
-  }
-
-  [class$=nw] {
-    top: 0;
-    left: 0;
-    height: 10px;
-    width: 10px;
-    z-index: 10;
-    cursor: url(/cursors/Cursor_6.cur), pointer;
-  }
-
-  [class$=sw] {
-    bottom: 0;
-    left: 0;
-    top: revert !important;
-    right: revert !important;
-    height: 10px;
-    width: 10px;
-    z-index: 10;
-    cursor: url(/cursors/Cursor_7.cur), pointer;
-  }
-
-  [class$=e] {
-    top: 0;
-    right: 0;
-  }
-
-  [class$=w] {
-    top: 0;
-    left: 0;
-  }
-
-  [class$=se] {
-    bottom: 0;
-    right: 0;
-    top: revert !important;
-    left: revert !important;
-    height: 10px;
-    width: 10px;
-    z-index: 10;
-    cursor: url(/cursors/Cursor_6.cur), pointer;
-  }
-
-  [class$=ne] {
-    top: 0;
-    right: 0;
-    height: 10px;
-    width: 10px;
-    z-index: 10;
-    cursor: url(/cursors/Cursor_7.cur), pointer;
+    width: 400px;
+    height: 200px;
+  
+    .wrapper {
+      position: relative;
+    }
+  
+    [class*=resizable-] {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+      z-index: 5;
+    }
+  
+    [class$=n], [class$=s] {
+      left: 0;
+      width: 100%;
+      height: 5px;
+      cursor: url(/cursors/Cursor_9.cur), pointer;
+    }
+  
+    [class$=e], [class$=w] {
+      height: 100%;
+      width: 5px;
+      cursor: url(/cursors/Cursor_8.cur), pointer;
+    }
+  
+    [class$=n] {
+      top: 0;
+    }
+  
+    [class$=s] {
+      bottom: 0;
+    }
+  
+    [class$=nw] {
+      top: 0;
+      left: 0;
+      height: 10px;
+      width: 10px;
+      z-index: 10;
+      cursor: url(/cursors/Cursor_6.cur), pointer;
+    }
+  
+    [class$=sw] {
+      bottom: 0;
+      left: 0;
+      top: revert !important;
+      right: revert !important;
+      height: 10px;
+      width: 10px;
+      z-index: 10;
+      cursor: url(/cursors/Cursor_7.cur), pointer;
+    }
+  
+    [class$=e] {
+      top: 0;
+      right: 0;
+    }
+  
+    [class$=w] {
+      top: 0;
+      left: 0;
+    }
+  
+    [class$=se] {
+      bottom: 0;
+      right: 0;
+      top: revert !important;
+      left: revert !important;
+      height: 10px;
+      width: 10px;
+      z-index: 10;
+      cursor: url(/cursors/Cursor_6.cur), pointer;
+    }
+  
+    [class$=ne] {
+      top: 0;
+      right: 0;
+      height: 10px;
+      width: 10px;
+      z-index: 10;
+      cursor: url(/cursors/Cursor_7.cur), pointer;
+    }
   }
 }

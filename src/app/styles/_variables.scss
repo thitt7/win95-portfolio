@@ -1,5 +1,48 @@
 /* Colors */
 $icon-highlight: #000080;
+$window-bg: #c0c0c0;
+$window-blur-bg: #808080;
 
 /* Sizes */
 $icon-size: 32px;
+
+/* Cursors */
+$pointer: url(/cursors/pointer.cur);
+
+
+/* Mixins */
+@mixin win95-border {
+    &::before {
+        box-sizing: border-box;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-top-style: solid;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+        border-width: 2px;
+        border-left-color: #fefefe;
+        border-top-color: #fefefe;
+        border-right-color: #0a0a0a;
+        border-bottom-color: #0a0a0a;
+        box-shadow: inset 1px 1px 0px 1px #dfdfdf,inset -1px -1px 0 1px #848584;
+    }
+
+    &:active {
+        &::before {
+            border-style: solid;
+            border-width: 2px;
+            border-left-color: #0a0a0a;
+            border-top-color: #0a0a0a;
+            border-right-color: #fefefe;
+            border-bottom-color: #fefefe;
+            box-shadow: inset 1px 1px 0px 1px #848584,inset -1px -1px 0 1px #dfdfdf;
+        }
+    }
+    
+};

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from '../reducers/programSlice';
 import Link from 'next/link';
@@ -17,13 +18,12 @@ const DesktopIcon = ({name}: {name?: string}) => {
 
 
     const [program, setProgram] = useState(programs[`${name as keyof typeof programs}`])
-    const count = useSelector((state) => state.program.value)
+    const tasks = useSelector((state) => state.program.tasks)
     const dispatch = useDispatch()
 
     const startTask = (e: React.MouseEvent) => {
-        setProgram((program) => {return {...program, running: true, windowed: true}})
-        dispatch(set({foo: 'bar'}))
-        console.log('hello from task opener')
+        // setProgram((program) => {return {...program, running: true, windowed: true}})
+        dispatch(set({...program, running: true, windowed: true, uuid: uuidv4()}))
     }
 
   return (

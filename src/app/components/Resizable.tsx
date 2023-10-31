@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useLayoutEffect} from 'react';
 
 import styles from '../styles/window.module.scss';
 
@@ -10,6 +10,15 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
     const Left = useRef<HTMLElement>(null)
     const NE = useRef<HTMLElement>(null)
     const SE = useRef<HTMLElement>(null)
+    const SW = useRef<HTMLElement>(null)
+    const NW = useRef<HTMLElement>(null)
+
+    useLayoutEffect(() => {
+        const resizeableElement = Box.current!;
+        resizeableElement.style.top = "50%";
+        resizeableElement.style.left = "50%";
+        resizeableElement.style.transform = `translate(-${(Box.current!.offsetWidth)/2}px, -${(Box.current!.offsetHeight)/2}px)`;
+    }, [])
 
     useEffect(() => {
         const resizeableElement = Box.current!;
@@ -20,15 +29,11 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
         let xCoord = 0;
         let yCoord = 0;
 
-        resizeableElement.style.top = "150px";
-        resizeableElement.style.left = "150px";
-
         // Top
         const onMouseMoveTopResize = (event: MouseEvent) => {
             const dy = event.clientY - yCoord;
             height = height - dy;
             yCoord = event.clientY;
-            yCoord;
             resizeableElement.style.height = `${height}px`;
         }
         
@@ -163,6 +168,62 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
             document.addEventListener("mouseup", onMouseUpSEResize);
         };
 
+        /* North West */
+        const onMouseMoveNWResize = (event: MouseEvent) => {
+            const dx = event.clientX - xCoord;
+            const dy = event.clientY - yCoord;
+            width = width - dx;
+            height = height - dy;
+            xCoord = event.clientX;
+            yCoord = event.clientY;
+            resizeableElement.style.width = `${width}px`;
+            resizeableElement.style.height = `${height}px`;
+        }
+        
+        const onMouseUpNWResize = (event: MouseEvent) => {
+            document.removeEventListener("mousemove", onMouseMoveNWResize);
+        };
+        
+        const onMouseDownNWResize = (event: MouseEvent) => {
+            xCoord = event.clientX;
+            yCoord = event.clientY;
+            const styles = window.getComputedStyle(resizeableElement);
+            resizeableElement.style.bottom = styles.bottom;
+            resizeableElement.style.top = null as any;
+            resizeableElement.style.right = styles.right;
+            resizeableElement.style.left = null as any;
+            document.addEventListener("mousemove", onMouseMoveNWResize);
+            document.addEventListener("mouseup", onMouseUpNWResize);
+        };
+
+        /* South West */
+        const onMouseMoveSWResize = (event: MouseEvent) => {
+            const dx = event.clientX - xCoord;
+            const dy = event.clientY - yCoord;
+            width = width - dx;
+            height = height + dy;
+            xCoord = event.clientX;
+            yCoord = event.clientY;
+            resizeableElement.style.width = `${width}px`;
+            resizeableElement.style.height = `${height}px`;
+        }
+        
+        const onMouseUpSWResize = (event: MouseEvent) => {
+            document.removeEventListener("mousemove", onMouseMoveSWResize);
+        };
+        
+        const onMouseDownSWResize = (event: MouseEvent) => {
+            xCoord = event.clientX;
+            yCoord = event.clientY;
+            const styles = window.getComputedStyle(resizeableElement);
+            resizeableElement.style.bottom = null as any;
+            resizeableElement.style.top = styles.top;
+            resizeableElement.style.right = styles.right;
+            resizeableElement.style.left = null as any;
+            document.addEventListener("mousemove", onMouseMoveSWResize);
+            document.addEventListener("mouseup", onMouseUpSWResize);
+        };
+
         /* Add Mousedown Event Listeners */
         const resizeRight = Right.current!;
         resizeRight.addEventListener("mousedown", onMouseDownRightResize);
@@ -182,6 +243,12 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
         const resizeSE = SE.current!;
         resizeSE.addEventListener("mousedown", onMouseDownSEResize);
 
+        const resizeNW = NW.current!;
+        resizeNW.addEventListener("mousedown", onMouseDownNWResize);
+
+        const resizeSW = SW.current!;
+        resizeSW.addEventListener("mousedown", onMouseDownSWResize);
+
         return () => {
             resizeTop.removeEventListener("mousedown", onMouseDownTopResize);
             resizeRight.removeEventListener("mousedown", onMouseDownRightResize);
@@ -189,19 +256,25 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
             resizeLeft.removeEventListener("mousedown", onMouseDownLeftResize);
             resizeNE.removeEventListener("mousedown", onMouseDownNEResize);
             resizeSE.removeEventListener("mousedown", onMouseDownSEResize);
+            resizeSE.removeEventListener("mousedown", onMouseDownNWResize);
+            resizeSE.removeEventListener("mousedown", onMouseDownSWResize);
         }
 
     }, [])
 
   return (
-    <div ref={Box} className={styles.resizable}>
-        {children}
-        <span ref={Top} className='resizable-n'></span>
-        <span ref={Right} className='resizable-e'></span>
-        <span ref={Bottom} className='resizable-s'></span>
-        <span ref={Left} className='resizable-w'></span>
-        <span ref={NE} className='resizable-ne'></span>
-        <span ref={SE} className='resizable-se'></span>
+    <div className={styles.wrapper}>
+        <div ref={Box} className={styles.resizable}>
+            {children}
+            <span ref={Top} className='resizable-n'></span>
+            <span ref={Right} className='resizable-e'></span>
+            <span ref={Bottom} className='resizable-s'></span>
+            <span ref={Left} className='resizable-w'></span>
+            <span ref={NE} className='resizable-ne'></span>
+            <span ref={SE} className='resizable-se'></span>
+            <span ref={NW} className='resizable-nw'></span>
+            <span ref={SW} className='resizable-sw'></span>
+        </div>
     </div>
   )
 }

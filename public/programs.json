@@ -2,6 +2,7 @@
     "neighborhood": {
         "title": "Network Neighborhood",
         "formattedTitle": "Network<br/>Neighborhood",
+        "body": "this is some example text",
         "icon": "w95_18",
         "type": "text",
         "filename": "networkneighborhood.exe",
@@ -10,6 +11,7 @@
     "recycle": {
         "title": "Recycle Bin",
         "formattedTitle": "Recycle Bin",
+        "body": "",
         "icon": "w95_32",
         "icon-full": "w95_33",
         "type": "text",
@@ -20,6 +22,7 @@
     "drive": {
         "title": "(C)",
         "formattedTitle": "(C)",
+        "body": "",
         "icon": "w95_9",
         "type": "text",
         "filename": "drive",
@@ -28,6 +31,7 @@
     "cpanel": {
         "title": "Control Panel",
         "formattedTitle": "Control Panel",
+        "body": "",
         "icon": "w95_36",
         "type": "text",
         "filename": "cpanel.exe",
@@ -36,6 +40,7 @@
     "folder": {
         "title": "New Folder",
         "formattedTitle": "New Folder",
+        "body": "",
         "icon": "w95_4",
         "type": "folder",
         "filename": "newfolder",

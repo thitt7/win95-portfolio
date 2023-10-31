@@ -6,13 +6,15 @@
     width: 100%;
     display: flex;
     flex-flow: column;
-
+    padding-bottom: 50px;
 }
 
 .space {
     margin: 0;
     display: flex;
+    position: relative;
     flex-flow: column wrap;
+    flex: 1;
 
     .icon {
         color: black;
