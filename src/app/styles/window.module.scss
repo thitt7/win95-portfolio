@@ -73,7 +73,7 @@
     }
 
     .title {
-        padding: 2px;
+        padding: 4px;
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
@@ -130,6 +130,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  // transition: top 1s 1s, left 1s 1s;
+
+  // * {transition-delay: 2s;}
 
   &:not(:focus-within) {
     [class*=title] {
@@ -146,18 +149,11 @@
     }
   }
 
-  // &:focus {
-  //   z-index: 1;
-  //   border: 3px solid red;
-  //   color: red;
-  // }
-
   .resizable {
-    position: relative;
-  
     position: absolute;
     width: 400px;
     height: 200px;
+    // transition: transform 1s 1s;
   
     .wrapper {
       position: relative;
@@ -241,5 +237,61 @@
       z-index: 10;
       cursor: url(/cursors/Cursor_7.cur), pointer;
     }
+  }
+}
+
+.max {
+  inset: 0;
+  transform: none !important;
+
+  .window {
+    padding: 0;
+    border: none;
+  }
+
+  .title {border: none;}
+
+  .resizable {
+    inset: 0 !important;
+    transform: none !important;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#copy {
+  z-index: 0;
+  position: absolute;
+  display: none;
+  // inset: 0;
+  transition: 1s linear;
+
+  .title {
+    padding: 4px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 0;
+    max-width: 100%;
+    max-height: 100%;
+  
+    .top {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 5px;
+
+      figure {
+        height: 25px;
+        img {max-height: 100%;}
+      }
+    }
+  }
+
+  .controlBtns {
+    display: none;
   }
 }
