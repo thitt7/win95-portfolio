@@ -7,12 +7,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // }
 
-const initialState = {tasks: []}
+type TestState = Array<any>;
+
+const initialState = {tasks: []};
 // const initialCounterState = { counter: 0, showCounter: true };
 
 export const programSlice = createSlice({
   name: 'tasks',
-  initialState: initialState,
+  initialState,
   reducers: {
     set: (state, action: any) => {
       state.tasks.push(action.payload)
@@ -38,11 +40,35 @@ export const programSlice = createSlice({
       let tasks = JSON.parse(JSON.stringify(state.tasks));
       tasks = {...tasks, windowed: false}
       state.tasks = {...tasks}
+    },
+    maximize: async (state, action) => {
+      let tasks = JSON.parse(JSON.stringify(state.tasks));
+      console.log('TASKS B4 OPS: ', tasks)
+      // const found = tasks.find((el: any)=>{return el['uuid'] = action.payload})
+      // const index = tasks.findIndex((el: any) => el['uuid'] = action.payload);
+      // tasks[index] = {...tasks[index], max: true}
+
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === action.payload);
+
+      // If the object is found, add the new property
+      if (foundObject) {
+        foundObject['max'] = true;
+      } else {
+        console.log("Object not found with UUID:", action.payload);
+      }
+
+      console.log('TASKS IN SLICE: ', JSON.parse(JSON.stringify(state.tasks)))
+      // console.log('INDEX: ', index)
+
+
+      // state.tasks[index] = {...state.tasks[index], max: true}
+      state.tasks[0].example = 'whooo'
+      // state.tasks = {...state.tasks}
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { set, close } = programSlice.actions
+export const { set, close, minimize, maximize } = programSlice.actions
 
 export default programSlice.reducer

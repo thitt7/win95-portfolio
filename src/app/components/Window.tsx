@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect, useCallback, cloneElement} from 'react';
 import { Button, Frame, Toolbar, Window, WindowContent, WindowHeader } from 'react95';
-import { set, close } from '../reducers/programSlice';
+import { set, close, minimize, maximize } from '../reducers/programSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Draggable from 'react-draggable';
@@ -21,7 +21,6 @@ const Programs = () => {
   const [max, setMax] = useState(false)
   const [clone, setClone] = useState<HTMLElement>()
   const [el, setEl] = useState()
-  // console.log('tasks: ',tasks)
 
   let example: number;
   let windowRef: Element;
@@ -40,9 +39,10 @@ const Programs = () => {
   // console.log('REF: ',windowRef)
 
   useEffect(() => {
-    console.log('REF: ',ref)
+    // console.log('REF: ',ref)
     console.log('MAX: ',max)
     console.log('CLONE: ', clone)
+    console.log('TASKSSS: ',tasks)
    
     if (topRef.current) {
       if (!clone) {console.log(setClone(topRef.current.cloneNode(true)))}
@@ -63,6 +63,7 @@ const Programs = () => {
       // copyRef.current.style.color = 'red';
       // console.log('COPYREF: ',copyRef.current)
     }
+    
   })
 
   useEffect(() => {
@@ -79,9 +80,7 @@ const Programs = () => {
         tasks.map((e: any, i: number) => {
 
           const setRef = (el: any) => {
-            console.log('REF IN FN: ',el)
             if (el && copyRef.current) { copyRef.current[e.uuid] = el }
-            console.log('COPYREF: ', copyRef)
           }
 
           const Copy = () => {
@@ -113,7 +112,8 @@ const Programs = () => {
           }
 
           const Maximize = async () => {
-            maxRef.current = !maxRef.current
+            // maxRef.current = !maxRef.current
+            dispatch(maximize(e.uuid))
             setMax((max)=>!max)
             console.log('REFS: ',topRef.current, copyRef.current)
 
@@ -127,7 +127,15 @@ const Programs = () => {
               copyRef.current[e.uuid].style.display = 'block';
 
               await asyncDelay(1);
-              if (maxRef.current) {
+
+              const index = tasks.findIndex((el: any) => el['uuid'] == e.uuid);
+              // console.log('INDEX IN MAX FN: ', index)
+              // console.log('TASK EL IN MAX FN: ', tasks[index])
+
+              let max = (tasks.find((obj: any) => obj.uuid === e.uuid)).max;
+              console.log('TASKS OBJ: ', tasks)
+
+              if (max) {
                 console.log('running maxref cond')
                 copyRef.current[e.uuid].style.width = `100%`;
                 copyRef.current[e.uuid].style.transform = `translate(0)`;
