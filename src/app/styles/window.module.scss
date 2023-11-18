@@ -254,8 +254,8 @@
   .resizable {
     inset: 0 !important;
     transform: none !important;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
@@ -263,8 +263,9 @@
   z-index: 0;
   position: absolute;
   display: none;
+  transform: none;
   // inset: 0;
-  transition: 1s linear;
+  transition: .5s linear;
 
   .title {
     padding: 4px;

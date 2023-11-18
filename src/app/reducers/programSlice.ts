@@ -41,7 +41,7 @@ export const programSlice = createSlice({
       tasks = {...tasks, windowed: false}
       state.tasks = {...tasks}
     },
-    maximize: async (state, action) => {
+    maximize: (state, action) => {
       let tasks = JSON.parse(JSON.stringify(state.tasks));
       console.log('TASKS B4 OPS: ', tasks)
       // const found = tasks.find((el: any)=>{return el['uuid'] = action.payload})
@@ -58,11 +58,8 @@ export const programSlice = createSlice({
       }
 
       console.log('TASKS IN SLICE: ', JSON.parse(JSON.stringify(state.tasks)))
-      // console.log('INDEX: ', index)
-
 
       // state.tasks[index] = {...state.tasks[index], max: true}
-      state.tasks[0].example = 'whooo'
       // state.tasks = {...state.tasks}
     }
   },
