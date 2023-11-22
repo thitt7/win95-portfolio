@@ -20,8 +20,7 @@ export const programSlice = createSlice({
       state.tasks.push(action.payload)
     },
     close: (state, action) => {
-      let tasks = JSON.parse(JSON.stringify(state.tasks));
-      let replaced = tasks.map((i: any)=>{
+      let replaced = state.tasks.map((i: any)=>{
         if (i['uuid'] == action.payload) {return {}}
         else {return i}
       })
@@ -36,36 +35,47 @@ export const programSlice = createSlice({
       // state.tasks = tasks.filter((i: any)=>{return i['uuid'] !== action.payload})
       
     },
-    minimize: (state, action) => {
-      let tasks = JSON.parse(JSON.stringify(state.tasks));
-      tasks = {...tasks, windowed: false}
-      state.tasks = {...tasks}
+    setMin: (state, action) => {
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === action.payload);
+      if (foundObject) { foundObject['min'] = true; }
+      else { console.log("Object not found with UUID:", action.payload); }
     },
-    maximize: (state, action) => {
-      let tasks = JSON.parse(JSON.stringify(state.tasks));
-      console.log('TASKS B4 OPS: ', tasks)
+    setMax: (state, action) => {
+      // let tasks = JSON.parse(JSON.stringify(state.tasks));
       // const found = tasks.find((el: any)=>{return el['uuid'] = action.payload})
       // const index = tasks.findIndex((el: any) => el['uuid'] = action.payload);
       // tasks[index] = {...tasks[index], max: true}
 
       let foundObject = state.tasks.find((obj: any) => obj.uuid === action.payload);
+      if (foundObject) { foundObject['max'] = true; }
+      else { console.log("Object not found with UUID:", action.payload); }
+    },
+    focus: (state, action) => {
+      const {uuid, active} = action.payload
 
-      // If the object is found, add the new property
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
+      if (foundObject) { foundObject['active'] = active; }
+      else { console.log("Object not found with UUID:", action.payload); }
+    },
+    setWindowRef: (state, action) => {
+      const {uuid, ref} = action.payload
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
       if (foundObject) {
-        foundObject['max'] = true;
-      } else {
-        console.log("Object not found with UUID:", action.payload);
-      }
-
-      console.log('TASKS IN SLICE: ', JSON.parse(JSON.stringify(state.tasks)))
-
-      // state.tasks[index] = {...state.tasks[index], max: true}
-      // state.tasks = {...state.tasks}
+        foundObject['windowRef'] = ref;
+      } 
+      else { console.log("Object not found with UUID:", action.payload); }
+      // state.tasks[index] = {...state.tasks[index], ref: action.payload}
+    },
+    setTaskRef: (state, action) => {
+      const {uuid, ref} = action.payload
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
+      if (foundObject) { foundObject['taskRef'] = ref; }
+      else { console.log("Object not found with UUID:", action.payload) }
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { set, close, minimize, maximize } = programSlice.actions
+export const { set, close, setMin, setMax, focus, setWindowRef, setTaskRef } = programSlice.actions
 
 export default programSlice.reducer

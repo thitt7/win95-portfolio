@@ -59,3 +59,47 @@
         }
       }
 }
+
+#taskbar {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1;
+    gap: 5px;
+    padding: 0 5px;
+
+    #program {
+        @include win95-border;
+        
+        cursor: $pointer, pointer;
+        height: 35px;
+        padding: 5px;
+        flex: 0 0 240px;
+
+        > div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            height: 100%;
+        
+            * {height: 100%;}
+
+            span {
+                height: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        &[data-active=true] {
+            @include win95-pressed;
+
+            background-color: white;
+            background-image: linear-gradient( 45deg, #c6c6c6 25%, transparent 25%, transparent 75%, #c6c6c6 75% ),linear-gradient( 45deg, #c6c6c6 25%, transparent 25%, transparent 75%, #c6c6c6 75% );
+            background-size: 4px 4px;
+            background-position: 0 0,2px 2px;
+
+            span {font-weight: bold;}
+        }
+    }
+}

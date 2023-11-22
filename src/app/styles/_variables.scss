@@ -12,6 +12,8 @@ $pointer: url(/cursors/pointer.cur);
 
 /* Mixins */
 @mixin win95-border {
+    position: relative;
+    
     &::before {
         box-sizing: border-box;
         content: '';
@@ -32,17 +34,29 @@ $pointer: url(/cursors/pointer.cur);
         border-bottom-color: #0a0a0a;
         box-shadow: inset 1px 1px 0px 1px #dfdfdf,inset -1px -1px 0 1px #848584;
     }
-
-    &:active {
-        &::before {
-            border-style: solid;
-            border-width: 2px;
-            border-left-color: #0a0a0a;
-            border-top-color: #0a0a0a;
-            border-right-color: #fefefe;
-            border-bottom-color: #fefefe;
-            box-shadow: inset 1px 1px 0px 1px #848584,inset -1px -1px 0 1px #dfdfdf;
-        }
-    }
     
+};
+
+@mixin win95-pressed {
+    &::before {
+        border-style: solid;
+        border-width: 2px;
+        border-left-color: #0a0a0a;
+        border-top-color: #0a0a0a;
+        border-right-color: #fefefe;
+        border-bottom-color: #fefefe;
+        box-shadow: inset 1px 1px 0px 1px #848584,inset -1px -1px 0 1px #dfdfdf;
+    }
+}
+
+@mixin win95-active {
+    &:active {
+        @include win95-pressed;
+    }
+}
+
+@mixin win95-focus {
+    &:focus, &:focus-within {
+        @include win95-pressed;
+    }
 };

@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect, useCallback, cloneElement} from 'react';
 import { Button, Frame, Toolbar, Window, WindowContent, WindowHeader } from 'react95';
-import { set, close, minimize, maximize } from '../reducers/programSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { close, setMin, setMax, setWindowRef, setTaskRef, focus } from '../reducers/programSlice';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import Draggable from 'react-draggable';
 import Resizable from './Resizable';
 
@@ -13,15 +13,21 @@ function asyncDelay(ms: number) {
   });
 }
 
+// function Minimize (uuid: string, copy: HTMLElement, window: HTMLElement, task: HTMLElement): any {
+//   console.log('MIN FN: ', uuid, copy, window, task)
+//   return false
+// }
+
 const Programs = () => {
 
   const dispatch = useDispatch()
   const {tasks} = useSelector((state: any) => state.program)
-  const [max, setMax] = useState(false)
+  const [maxState, setMaxState] = useState({})
   const [clone, setClone] = useState<HTMLElement>();
 
   const ref = useRef<any>({});
-  const maxRef = useRef<any>()
+  const maxRef = useRef<any>();
+  const minRef = useRef<any>();
   const copyRef = useRef<any>({});
   const topRef = useRef<any>({});
   const windowCoords = useRef({});
@@ -30,42 +36,33 @@ const Programs = () => {
     console.log('REF: ',ref)
     console.log('COPYREF: ',copyRef)
     console.log('TOPREF: ',topRef)
-    // console.log('COORDS: ', windowCoords)
    
-    // console.log('TASKSSS: ',tasks)
-   
-    // if (topRef.current) {
-    //   if (!clone) {setClone(topRef.current.cloneNode(true))}
-    // }
-    
-    if (topRef.current && copyRef.current) {
-      // const rect = topRef.current.getBoundingClientRect();
-      // const x = rect.left + window.scrollX;
-      // const y = rect.top + window.scrollY;
-      // const width = topRef.current.offsetWidth;
-      // const height = topRef.current.offsetHeight;
-
-      // copyRef.current.style.transform = `translate(${x + 2}px, ${y + 2}px)`;
-      // copyRef.current.style.width = `${width - 4}px`;
-      // copyRef.current.style.height = `${height - 4}px`;
-
-      // copyRef.current.style.color = 'red';
-      // console.log('COPYREF: ',copyRef.current)
-    }
+    tasks.forEach((element: any) => { console.log(element) });
     
   })
-
-  useEffect(() => {
-    if (copyRef.current && topRef.current) {
-      // matchPosition()
-    }
-  }, [copyRef.current])
 
   return (
     <>
     
       {
         tasks.map((e: any, i: number) => {
+          // if (topRef.current[e.uuid] && copyRef.current[e.uuid]) {
+          //   const top = topRef.current[e.uuid].ref
+          //   const copy = copyRef.current[e.uuid].ref
+          // }
+          // let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
+
+
+          const setRef = (el: any) => {
+            // el?.focus()
+
+            if (el && !ref.current[e.uuid]) {
+              ref.current[e.uuid] = el;
+              let windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).ref;
+              if (!windowRef) {dispatch(setWindowRef({uuid: e.uuid, ref: el}))}
+            } 
+            else { delete ref.current[e.uuid] }
+          }
 
           const setCopyRef = (el: any) => {   
             if (el && copyRef.current) { copyRef.current[e.uuid] = {ref: el} }
@@ -76,6 +73,11 @@ const Programs = () => {
             if (topRef.current) {
               if (!clone) {setClone(topRef.current[e.uuid].ref.cloneNode(true))}
             }
+          }
+
+          const focusHandler = async () => {
+            let active = (tasks.find((obj: any) => obj.uuid === e.uuid)).active;
+            dispatch(focus({uuid: e.uuid, active: !active}));
           }
 
           const Copy = () => {
@@ -126,9 +128,39 @@ const Programs = () => {
             delete copyRef.current[e.uuid].ref
           }
 
-          const asyncDispatch = async () => {
-            dispatch(maximize(e.uuid))
-            console.log('action dispatched');
+          const Minimize = async () => {
+            let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
+            const copy = copyRef.current[e.uuid].ref;
+            const top = topRef.current[e.uuid].ref;
+
+            const topX = top.getBoundingClientRect().left + window.scrollX;
+            const topY = top.getBoundingClientRect().top + window.scrollY;
+            const topWidth = top.offsetWidth;
+            const topHeight = top.offsetHeight;
+
+            const taskX = task.getBoundingClientRect().left + window.scrollX;
+            const taskY = task.getBoundingClientRect().top + window.scrollY;
+            const taskWidth = task.offsetWidth;
+            const taskHeight = task.offsetHeight;
+
+            if (!minRef || (minRef && !minRef[e.uuid])) {minRef[e.uuid] = true}
+            else {minRef[e.uuid] = false}
+
+            dispatch(setMin(e.uuid))
+
+            copy.style.transform = `translate(${topX + 2}px, ${topY + 2}px)`;
+            copy.style.width = `${topWidth - 4}px`;
+            copy.style.height = `${topHeight - 4}px`;
+            copy.style.zIndex = `2`;
+
+            copy.style.display = 'block';
+            await asyncDelay(1)
+
+            copy.style.transform = `translate(${taskX + 2}px, ${taskY + 2}px)`;
+            copy.style.width = `${taskWidth - 4}px`;
+            copy.style.height = `${taskHeight - 4}px`;
+            // copy.style.zIndex = ``;
+
           }
 
           const Maximize = async () => {
@@ -138,13 +170,8 @@ const Programs = () => {
             if (!maxRef || (maxRef && !maxRef[e.uuid])) {maxRef[e.uuid] = true}
             else {maxRef[e.uuid] = false}
 
-            // dispatch(maximize(e.uuid))
-
-            // copyRef.current[e.uuid] = {...copyRef.current[e.uuid], max: true}
-            // copyRef.current[e.uuid].max = !copyRef.current[e.uuid].max
-
-            await asyncDispatch()
-            setMax((max)=>!max)
+            dispatch(setMax(e.uuid))
+            setMaxState((maxState)=>{return {...maxState, [e.uuid]: !maxState[e.uuid]}})
 
             if (topRef.current && copyRef.current[e.uuid].ref) {
 
@@ -180,13 +207,8 @@ const Programs = () => {
             return (
               <>
                 <Copy />
-                <Draggable key={e.uuid} handle={`[class*=title]`} disabled={max}>
-                  <div
-                  ref={element => {
-                  element?.focus()
-                  if (element && ref.current) { ref.current[e.uuid] = element } 
-                  else { delete ref.current[e.uuid] }}} className={styles.container} 
-                  tabIndex={i}>
+                <Draggable key={e.uuid} handle={`[class*=title]`} disabled={maxState[e.uuid]}>
+                  <div className={styles.container} ref={setRef} tabIndex={i} onFocus={focusHandler} onBlur={focusHandler}>
                     <Resizable>
                       <Window className={styles.window} onDrag={()=>{console.log('DRAGGINGGG')}}>
                         <WindowHeader ref={setTopRef} className={styles.title} onDoubleClick={Maximize}>
@@ -196,22 +218,16 @@ const Programs = () => {
                           </div>
                           <div className={styles.controlBtns}>
                             <div>
-                              <button className={styles.min}><span/></button>
+                              <button onClick={Minimize} className={styles.min}><span/></button>
                               <button onClick={Maximize} className={styles.max}><span/></button>
                             </div>
                             <button onClick={closeProgram}> <span className={styles.close} /> </button>
                           </div>
                         </WindowHeader>
                         <Toolbar>
-                          <Button variant='menu' size='sm'>
-                            File
-                          </Button>
-                          <Button variant='menu' size='sm'>
-                            Edit
-                          </Button>
-                          <Button variant='menu' size='sm' disabled>
-                            Save
-                          </Button>
+                          <Button variant='menu' size='sm'> File </Button>
+                          <Button variant='menu' size='sm'> Edit </Button>
+                          <Button variant='menu' size='sm' disabled> Save </Button>
                         </Toolbar>
                         <WindowContent>
                           <article dangerouslySetInnerHTML={{ __html: e.body }}></article>
@@ -231,3 +247,4 @@ const Programs = () => {
 }
 
 export default Programs;
+// export {Minimize};

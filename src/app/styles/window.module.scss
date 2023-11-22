@@ -46,6 +46,7 @@
 
       button {
         @include win95-border;
+        @include win95-active;
         position: relative;
         cursor: $pointer, pointer;
 
@@ -141,7 +142,7 @@
     }
   }
 
-  &:focus-within {
+  &:focus, &:focus-within {
     z-index: 1;
 
     [class*=title] {
