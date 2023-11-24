@@ -132,6 +132,7 @@ const Programs = () => {
             let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
             const copy = copyRef.current[e.uuid].ref;
             const top = topRef.current[e.uuid].ref;
+            console.log('WREF: ', ref.current[e.uuid])
 
             const topX = top.getBoundingClientRect().left + window.scrollX;
             const topY = top.getBoundingClientRect().top + window.scrollY;
@@ -159,7 +160,9 @@ const Programs = () => {
             copy.style.transform = `translate(${taskX + 2}px, ${taskY + 2}px)`;
             copy.style.width = `${taskWidth - 4}px`;
             copy.style.height = `${taskHeight - 4}px`;
-            // copy.style.zIndex = ``;
+            await asyncDelay(300);
+            copy.style.zIndex = ``;
+            ref.current[e.uuid].style.visibility = 'hidden';
 
           }
 
@@ -187,6 +190,7 @@ const Programs = () => {
               console.log('MAXREF IN FN', maxRef)
 
               if (maxRef[e.uuid]) {
+                await asyncDelay(10)
                 copyRef.current[e.uuid].ref.style.width = `100%`;
                 copyRef.current[e.uuid].ref.style.transform = `translate(0)`;
                 // await asyncDelay(500);
