@@ -51,8 +51,32 @@ const TaskBar = () => {
 
                             const taskClick = () => {
                                 // if (!active) {}
-                                let windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
-                                windowRef.focus()
+                                const min = (tasks.find((obj: any) => obj.uuid === e.uuid)).min;
+                                const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+
+                                if (min) {
+                                    let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
+                                    const copy = (tasks.find((obj: any) => obj.uuid === e.uuid)).copyRef;
+                                    const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+
+                                    // const topX = top.getBoundingClientRect().left + window.scrollX;
+                                    // const topY = top.getBoundingClientRect().top + window.scrollY;
+                                    // const topWidth = top.offsetWidth;
+                                    // const topHeight = top.offsetHeight;
+
+                                    // const taskX = task.getBoundingClientRect().left + window.scrollX;
+                                    // const taskY = task.getBoundingClientRect().top + window.scrollY;
+                                    // const taskWidth = task.offsetWidth;
+                                    // const taskHeight = task.offsetHeight;
+
+                                    console.log('task is minimized!!')
+                                    console.log('COPY: ', copy.style)
+                                    console.log('WINDOW: ', window)
+                                    copy.style.display = 'block';
+                                    window.style.visibility = '';
+                                }
+
+                                window.focus()
                             }
 
                             if (Object.keys(e).length){

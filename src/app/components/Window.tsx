@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect, useCallback, cloneElement} from 'react';
 import { Button, Frame, Toolbar, Window, WindowContent, WindowHeader } from 'react95';
-import { close, setMin, setMax, setWindowRef, setTaskRef, focus } from '../reducers/programSlice';
+import { close, setMin, setMax, setWindowRef, setCopyRef, focus } from '../reducers/programSlice';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import Draggable from 'react-draggable';
 import Resizable from './Resizable';
@@ -46,26 +46,33 @@ const Programs = () => {
     
       {
         tasks.map((e: any, i: number) => {
-          // if (topRef.current[e.uuid] && copyRef.current[e.uuid]) {
-          //   const top = topRef.current[e.uuid].ref
-          //   const copy = copyRef.current[e.uuid].ref
-          // }
-          // let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
-
 
           const setRef = (el: any) => {
             // el?.focus()
 
             if (el && !ref.current[e.uuid]) {
               ref.current[e.uuid] = el;
-              let windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).ref;
-              if (!windowRef) {dispatch(setWindowRef({uuid: e.uuid, ref: el}))}
+              const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+              if (!window) {dispatch(setWindowRef({uuid: e.uuid, ref: el}))}
             } 
             else { delete ref.current[e.uuid] }
           }
 
-          const setCopyRef = (el: any) => {   
-            if (el && copyRef.current) { copyRef.current[e.uuid] = {ref: el} }
+          const setCopy = (el: any) => {
+            if (!copyRef.current[e.uuid]) {
+              console.log('running this')
+              dispatch(setCopyRef({uuid: e.uuid, ref: el}))
+            }
+            if (el && copyRef.current) {
+              console.log('running that')
+              copyRef.current[e.uuid] = {ref: el}
+            }
+            if (el && copyRef.current) {
+              // const copy = (tasks.find((obj: any) => obj.uuid === e.uuid)).copyRef;
+              // if (!copy) {dispatch(setCopyRef({uuid: e.uuid, ref: el}))}
+            }
+            
+            console.log('EL IN SETCOPY: ', el)
           }
 
           const setTopRef = (el: any) => {   
@@ -82,7 +89,7 @@ const Programs = () => {
 
           const Copy = () => {
             if (clone) {
-              return <div ref={setCopyRef} id={styles['copy']} dangerouslySetInnerHTML={{ __html: clone!.outerHTML}}/>
+              return <div ref={setCopy} id={styles['copy']} dangerouslySetInnerHTML={{ __html: clone!.outerHTML}}/>
             }
             else {return ''}
           }
@@ -115,7 +122,7 @@ const Programs = () => {
               copy.style.transform = `translate(${x + 2}px, ${y + 2}px)`;
               copy.style.width = `${width - 4}px`;
               copy.style.height = `${height - 4}px`;
-              await asyncDelay(480);
+              await asyncDelay(230);
               copy.style.zIndex = '';
               copy.style.display = '';
             }
@@ -132,7 +139,6 @@ const Programs = () => {
             let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
             const copy = copyRef.current[e.uuid].ref;
             const top = topRef.current[e.uuid].ref;
-            console.log('WREF: ', ref.current[e.uuid])
 
             const topX = top.getBoundingClientRect().left + window.scrollX;
             const topY = top.getBoundingClientRect().top + window.scrollY;
@@ -147,22 +153,24 @@ const Programs = () => {
             if (!minRef || (minRef && !minRef[e.uuid])) {minRef[e.uuid] = true}
             else {minRef[e.uuid] = false}
 
+            if (minRef[e.uuid]) {
+              copy.style.transform = `translate(${topX + 2}px, ${topY + 2}px)`;
+              copy.style.width = `${topWidth - 4}px`;
+              copy.style.height = `${topHeight - 4}px`;
+              copy.style.zIndex = `2`;
+  
+              copy.style.display = 'block';
+              await asyncDelay(1)
+  
+              copy.style.transform = `translate(${taskX + 2}px, ${taskY + 2}px)`;
+              copy.style.width = `${taskWidth - 4}px`;
+              copy.style.height = `${taskHeight - 4}px`;
+              await asyncDelay(250);
+              copy.style.zIndex = ``;
+              ref.current[e.uuid].style.visibility = 'hidden';
+            }
+
             dispatch(setMin(e.uuid))
-
-            copy.style.transform = `translate(${topX + 2}px, ${topY + 2}px)`;
-            copy.style.width = `${topWidth - 4}px`;
-            copy.style.height = `${topHeight - 4}px`;
-            copy.style.zIndex = `2`;
-
-            copy.style.display = 'block';
-            await asyncDelay(1)
-
-            copy.style.transform = `translate(${taskX + 2}px, ${taskY + 2}px)`;
-            copy.style.width = `${taskWidth - 4}px`;
-            copy.style.height = `${taskHeight - 4}px`;
-            await asyncDelay(300);
-            copy.style.zIndex = ``;
-            ref.current[e.uuid].style.visibility = 'hidden';
 
           }
 
@@ -190,7 +198,6 @@ const Programs = () => {
               console.log('MAXREF IN FN', maxRef)
 
               if (maxRef[e.uuid]) {
-                await asyncDelay(10)
                 copyRef.current[e.uuid].ref.style.width = `100%`;
                 copyRef.current[e.uuid].ref.style.transform = `translate(0)`;
                 // await asyncDelay(500);
@@ -202,7 +209,7 @@ const Programs = () => {
 
             }
 
-            await asyncDelay(500);
+            await asyncDelay(250);
             ref.current[e.uuid].classList.toggle(styles.max);
             
           }

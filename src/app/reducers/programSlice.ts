@@ -60,9 +60,7 @@ export const programSlice = createSlice({
     setWindowRef: (state, action) => {
       const {uuid, ref} = action.payload
       let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
-      if (foundObject) {
-        foundObject['windowRef'] = ref;
-      } 
+      if (foundObject) { foundObject['windowRef'] = ref; } 
       else { console.log("Object not found with UUID:", action.payload); }
       // state.tasks[index] = {...state.tasks[index], ref: action.payload}
     },
@@ -71,11 +69,18 @@ export const programSlice = createSlice({
       let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
       if (foundObject) { foundObject['taskRef'] = ref; }
       else { console.log("Object not found with UUID:", action.payload) }
+    },
+    setCopyRef: (state, action) => {
+      const {uuid, ref} = action.payload;
+      console.log('REF IN SLICE: ', ref)
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
+      if (foundObject) { foundObject['copyRef'] = ref; }
+      else { console.log("Object not found with UUID:", action.payload) }
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { set, close, setMin, setMax, focus, setWindowRef, setTaskRef } = programSlice.actions
+export const { set, close, setMin, setMax, focus, setWindowRef, setTaskRef, setCopyRef } = programSlice.actions
 
 export default programSlice.reducer
