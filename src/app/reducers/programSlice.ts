@@ -36,19 +36,16 @@ export const programSlice = createSlice({
       
     },
     setMin: (state, action) => {
-      let foundObject = state.tasks.find((obj: any) => obj.uuid === action.payload);
-      if (foundObject) { foundObject['min'] = true; }
-      else { console.log("Object not found with UUID:", action.payload); }
+      const {uuid, min} = action.payload;
+
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
+      if (foundObject) { foundObject['min'] = min; };
     },
     setMax: (state, action) => {
-      // let tasks = JSON.parse(JSON.stringify(state.tasks));
-      // const found = tasks.find((el: any)=>{return el['uuid'] = action.payload})
-      // const index = tasks.findIndex((el: any) => el['uuid'] = action.payload);
-      // tasks[index] = {...tasks[index], max: true}
+      const {uuid, max} = action.payload;
 
-      let foundObject = state.tasks.find((obj: any) => obj.uuid === action.payload);
-      if (foundObject) { foundObject['max'] = true; }
-      else { console.log("Object not found with UUID:", action.payload); }
+      let foundObject = state.tasks.find((obj: any) => obj.uuid === uuid);
+      if (foundObject) { foundObject['max'] = max; };
     },
     focus: (state, action) => {
       const {uuid, active} = action.payload

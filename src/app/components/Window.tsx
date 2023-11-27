@@ -169,7 +169,8 @@ const Programs = () => {
               ref.current[e.uuid].style.visibility = 'hidden';
             }
 
-            dispatch(setMin(e.uuid))
+            const min = (tasks.find((obj: any) => obj.uuid === e.uuid)).min;
+            dispatch(setMin({uuid: e.uuid, min: !min}));
 
           }
 
@@ -180,8 +181,9 @@ const Programs = () => {
             if (!maxRef || (maxRef && !maxRef[e.uuid])) {maxRef[e.uuid] = true}
             else {maxRef[e.uuid] = false}
 
-            dispatch(setMax(e.uuid))
-            setMaxState((maxState)=>{return {...maxState, [e.uuid]: !maxState[e.uuid]}})
+            const max = (tasks.find((obj: any) => obj.uuid === e.uuid)).max;
+            dispatch(setMax({uuid: e.uuid, max: !max}));
+            setMaxState((maxState)=>{return {...maxState, [e.uuid]: !maxState[e.uuid]}});
 
             if (topRef.current && copyRef.current[e.uuid].ref) {
 
@@ -190,11 +192,6 @@ const Programs = () => {
               await asyncDelay(1);
               copyRef.current[e.uuid].ref.style.display = 'block';
               await asyncDelay(1);
-
-              // const index = tasks.findIndex((el: any) => el['uuid'] == e.uuid);
-              // let MAX = (tasks.find((obj: any) => obj.uuid === e.uuid)).max;
-              console.log('COPYREF IN FN', copyRef.current[e.uuid])
-              console.log('MAXREF IN FN', maxRef)
 
               if (maxRef[e.uuid]) {
                 copyRef.current[e.uuid].ref.style.width = `100%`;

@@ -36,19 +36,21 @@ const StartMenu = () => {
                         </Button>
                         {open && (
                             
-                              <MenuList onClick={() => setOpen(false)} style={startStyles}>
+                              <MenuList onClick={() => setOpen(false)} style={startStyles} id={styles['menu']}>
                                 <div style={{display: 'flex', alignItems: 'stretch'}}>
                                 <aside className={styles.side}>
                                   <img src={win95startsidebar} alt="" />
                                 </aside>
                                   <div className={styles.icons}>
-                                    <MenuListItem> <span role='img' aria-label='👨‍💻'> 👨‍💻 </span> Profile </MenuListItem>
-                                    <MenuListItem> <span role='img' aria-label='📁'> 📁 </span> My account </MenuListItem>
-                                    <MenuListItem> <span role='img' aria-label='👨‍💻'> 👨‍💻 </span> Profile </MenuListItem>
-                                    <MenuListItem> <span role='img' aria-label='👨‍💻'> 👨‍💻 </span> Profile </MenuListItem>
-                                    <MenuListItem> <span role='img' aria-label='👨‍💻'> 👨‍💻 </span> Profile </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='programs'>
+                                      <img src="/w95_37.ico" alt="" /> </span> <p className={styles.title}>Programs</p>
+                                    </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='documents'><img src="/documents-start.ico" alt="" /></span> <p className={styles.title}>Documents</p> </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='settings'>📁</span> <p className={styles.title}>Settings</p> </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='photos'> 👨‍💻</span> <p className={styles.title}>Photos</p> </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='resume'><img src="/document-0.ico" alt="" /></span> <p className={styles.title}>Resume</p> </MenuListItem>
                                     <Separator />
-                                    <MenuListItem disabled> <span role='img' aria-label='🔙'> 🔙 </span> Logout </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='shut down'><img src="/w95_46.ico" alt="" /> </span> <p className={styles.title}>Shut Down...</p> </MenuListItem>
                                   </div>
                                   </div>
                               </MenuList>

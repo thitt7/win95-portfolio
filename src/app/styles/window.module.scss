@@ -87,14 +87,21 @@
           flex-flow: row nowrap;
           align-items: center;
           gap: 5px;
+          overflow: hidden;
 
           figure {
             height: 25px;
             img {max-height: 100%;}
           }
-        }
 
-        span {overflow: hidden;}
+          span {
+            padding-right: 5px;
+            height: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
       }
 
       .close {

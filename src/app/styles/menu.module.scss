@@ -8,6 +8,27 @@
     width: 15%;
 }
 
-.icons {
-    flex-grow: 1;
+#menu {
+    width: '225px';
+    margin: 0;
+    position: 'absolute';
+    left: '0';
+    bottom: '100%';
+
+    .item {
+        gap: 12px;
+
+        .title {
+            flex: 1;
+            display: flex;
+        }
+    }
+
+    span[role=img] {
+        display: flex;
+    }
+
+    .icons {
+        flex-grow: 1;
+    }
 }

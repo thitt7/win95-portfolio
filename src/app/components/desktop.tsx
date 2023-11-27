@@ -21,10 +21,10 @@ useEffect(() => {
   return (
     <div className={styles.container} ref={desktopRef}>
       <div className={styles.space}>
-        <DesktopIcon name={'neighborhood'}/>
+        <DesktopIcon name={'neighborhood'} />
         <Programs />
       </div>
-        <TaskBar />
-        </div>
+      <TaskBar />
+    </div>
   );
 }

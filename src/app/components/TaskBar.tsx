@@ -17,7 +17,9 @@ const TaskBar = () => {
     // const [active, setActive] = useState(true)
     const startImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAIVBMVEUAAAAAAACAAAD/AAAA/wAAgAAAAIAAAP///wCAgAD///8Zy0fQAAAAAXRSTlMAQObYZgAAAAFiS0dECmjQ9FYAAAAHdElNRQfiBhoAOBwkIrLGAAAAmUlEQVQoz7XRMQ7CMAwFUFsevNoMnMMiV+gFkDiIp+YKXdk4LnYiqEEdwdt/SuKvFuCvg6oqX3kIziw6J0Eyip6aLlfNs4KY0AKWAaAoAm+guBDvWAGL2HYAMqKES+y4DYBGZlDWgtFhj3PX7V579ICt9ngBzx5ewCP2HYCdOWGNHY8B0Nn9o4fzYY88rbXH+HClRx3BH//AJ8kFIO93liGNAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI2VDAwOjU2OjI4LTA0OjAwjfNqqgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNlQwMDo1NjoyOC0wNDowMPyu0hYAAAAASUVORK5CYII="
 
-    console.log('tasks in TASKBAR: ', tasks)
+    const currentDate = new Date();
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
 
     useEffect(() => {
         console.log('side effect in taskbar!!')
@@ -33,7 +35,7 @@ const TaskBar = () => {
                 <StartMenu />
                 <div id={styles['taskbar']}>
                     {
-                        tasks.map((e: any) => {
+                        tasks.map((e: any, i: number) => {
 
                             const setRef = (el: any) => {
                                 // el?.focus()
@@ -83,6 +85,8 @@ const TaskBar = () => {
                                     // copy.style.zIndex = ``;
                                     copy.style.display = '';
                                     window.style.visibility = '';
+
+                                    dispatch(setMin({uuid: e.uuid, min: !min}));
                                 }
 
                                 window.focus()
@@ -90,7 +94,7 @@ const TaskBar = () => {
 
                             if (Object.keys(e).length){
                                 return (
-                                    <div onClick={taskClick} ref={setRef} data-active={active} id={styles['program']}>
+                                    <div onClick={taskClick} ref={setRef} data-active={active} id={styles['program']} key={i}>
                                         <div>
                                             <figure><img src={`/${e.icon}.ico`} alt="" /></figure>
                                             <span>{e.title}</span>
@@ -101,7 +105,11 @@ const TaskBar = () => {
                         })
                     }
                 </div>
-                <TextInput placeholder='Search...' width={150} />
+                {/* <TextInput placeholder='Search...' width={150} /> */}
+                <div id={styles['clock']}>
+                    <figure><img src="/display_properties-2.ico" alt="" /></figure>
+                    <div id={styles['time']} dateime={Date.now()}>{`${hours}:${minutes} ${currentDate.getHours() < 12 ? 'AM' : 'PM'}`}</div>
+                </div>
             </Toolbar>
         </AppBar>
     )
