@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { AppBar, Button, MenuList, MenuListItem, Separator, TextInput, Toolbar } from 'react95';
-import { isOutside } from '@/lib/isOutside';
 
 import styles from '../styles/menu.module.scss';
 
