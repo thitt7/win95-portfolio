@@ -4,19 +4,9 @@ import { close, setMin, setMax, setWindowRef, setCopyRef, focus } from '../reduc
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import Draggable from 'react-draggable';
 import Resizable from './Resizable';
+import asyncDelay from '@/lib/asyncDelay';
 
 import styles from '../styles/window.module.scss';
-
-function asyncDelay(ms: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
-
-// function Minimize (uuid: string, copy: HTMLElement, window: HTMLElement, task: HTMLElement): any {
-//   console.log('MIN FN: ', uuid, copy, window, task)
-//   return false
-// }
 
 const Programs = () => {
 
@@ -30,16 +20,15 @@ const Programs = () => {
   const minRef = useRef<any>();
   const copyRef = useRef<any>({});
   const topRef = useRef<any>({});
-  const windowCoords = useRef({});
 
-  useEffect(() => {
-    console.log('REF: ',ref)
-    console.log('COPYREF: ',copyRef)
-    console.log('TOPREF: ',topRef)
+  // useEffect(() => {
+  //   console.log('REF: ',ref)
+  //   console.log('COPYREF: ',copyRef)
+  //   console.log('TOPREF: ',topRef)
    
-    tasks.forEach((element: any) => { console.log(element) });
+  //   tasks.forEach((element: any) => { console.log(element) });
     
-  })
+  // })
 
   return (
     <>
@@ -58,21 +47,31 @@ const Programs = () => {
             else { delete ref.current[e.uuid] }
           }
 
-          const setCopy = (el: any) => {
-            if (!copyRef.current[e.uuid]) {
-              console.log('running this')
-              dispatch(setCopyRef({uuid: e.uuid, ref: el}))
-            }
-            if (el && copyRef.current) {
-              console.log('running that')
-              copyRef.current[e.uuid] = {ref: el}
-            }
-            if (el && copyRef.current) {
-              // const copy = (tasks.find((obj: any) => obj.uuid === e.uuid)).copyRef;
-              // if (!copy) {dispatch(setCopyRef({uuid: e.uuid, ref: el}))}
-            }
+          // const setCopy = (el: any) => {
+          //   try {
+          //     if (Object.keys(el).some(key => key.startsWith('__reactFiber'))) {
+          //       console.log('EL IN SETCOPY: ', el);
+          //       console.log(Object.keys(el));
+          //       if (!copyRef.current[e.uuid]) {
+          //       console.log('running this')
+          //       dispatch(setCopyRef({uuid: e.uuid, ref: el}))
+          //     }
+          //     }
+          //   } catch (error) {}
             
-            console.log('EL IN SETCOPY: ', el)
+          //   if (el && copyRef.current) {
+          //     console.log('running that')
+          //     copyRef.current[e.uuid] = {ref: el}
+          //   }
+          //   if (el && copyRef.current) {
+          //     // const copy = (tasks.find((obj: any) => obj.uuid === e.uuid)).copyRef;
+          //     // if (!copy) {dispatch(setCopyRef({uuid: e.uuid, ref: el}))}
+          //   }
+            
+          // }
+
+          const setCopy = (el: any) => {   
+            if (el && copyRef.current) { copyRef.current[e.uuid] = {ref: el} }
           }
 
           const setTopRef = (el: any) => {   
@@ -89,7 +88,7 @@ const Programs = () => {
 
           const Copy = () => {
             if (clone) {
-              return <div ref={setCopy} id={styles['copy']} dangerouslySetInnerHTML={{ __html: clone!.outerHTML}}/>
+              return <div ref={setCopy} id={styles['copy']} dangerouslySetInnerHTML={{ __html: clone!.outerHTML}} data-uuid={e.uuid}/>
             }
             else {return ''}
           }
@@ -150,10 +149,10 @@ const Programs = () => {
             const taskWidth = task.offsetWidth;
             const taskHeight = task.offsetHeight;
 
-            if (!minRef || (minRef && !minRef[e.uuid])) {minRef[e.uuid] = true}
-            else {minRef[e.uuid] = false}
+            // if (!minRef || (minRef && !minRef[e.uuid])) {minRef[e.uuid] = true}
+            // else {minRef[e.uuid] = false}
 
-            if (minRef[e.uuid]) {
+            if (minRef) {
               copy.style.transform = `translate(${topX + 2}px, ${topY + 2}px)`;
               copy.style.width = `${topWidth - 4}px`;
               copy.style.height = `${topHeight - 4}px`;
@@ -165,7 +164,7 @@ const Programs = () => {
               copy.style.transform = `translate(${taskX + 2}px, ${taskY + 2}px)`;
               copy.style.width = `${taskWidth - 4}px`;
               copy.style.height = `${taskHeight - 4}px`;
-              await asyncDelay(250);
+              await asyncDelay(230);
               copy.style.zIndex = ``;
               ref.current[e.uuid].style.visibility = 'hidden';
             }

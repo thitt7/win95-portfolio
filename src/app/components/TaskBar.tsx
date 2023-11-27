@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import StartMenu from './StartMenu';
 import { AppBar, Button, MenuList, MenuListItem, Separator, TextInput, Toolbar } from 'react95';
-import { close, minimize, maximize, setTaskRef } from '../reducers/programSlice';
+import { close, setMin, setMax, setTaskRef } from '../reducers/programSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import styles from '../styles/desktop.module.scss'
+import asyncDelay from '@/lib/asyncDelay';
+import styles from '../styles/desktop.module.scss';
+import windowStyles from '../styles/window.module.scss';
 
 const TaskBar = () => {
 
@@ -17,16 +19,13 @@ const TaskBar = () => {
 
     console.log('tasks in TASKBAR: ', tasks)
 
-    // useEffect(() => {
-    //   console.log('side effect in taskbar!!')
-    //   myElement.addEventListener('focus', () => {
-    //     console.log('Element is focused!');
-    //     myElement.classList.add('focused');
-    //   });
+    useEffect(() => {
+        console.log('side effect in taskbar!!')
     
-    // const focusHandler = () => {
-    //     console.log("I AM FOCUSED!!!")
-    // }
+        const focusHandler = () => {
+            console.log("I AM FOCUSED!!!")
+        }
+    })
 
     return (
         <AppBar style={{ alignSelf: 'flex-end', width: '100%', top: 'revert', bottom: 0 }}>
@@ -49,30 +48,40 @@ const TaskBar = () => {
 
                             const active = (tasks.find((obj: any) => obj.uuid === e.uuid)).active;
 
-                            const taskClick = () => {
+                            const taskClick = async () => {
                                 // if (!active) {}
                                 const min = (tasks.find((obj: any) => obj.uuid === e.uuid)).min;
                                 const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+                                const task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
+                                const copy = document.querySelector(`[data-uuid='${e.uuid}']`) as HTMLElement;
+                                const top = window.querySelector(`.${windowStyles.title}`);
 
                                 if (min) {
-                                    let task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
-                                    const copy = (tasks.find((obj: any) => obj.uuid === e.uuid)).copyRef;
-                                    const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
 
-                                    // const topX = top.getBoundingClientRect().left + window.scrollX;
-                                    // const topY = top.getBoundingClientRect().top + window.scrollY;
-                                    // const topWidth = top.offsetWidth;
-                                    // const topHeight = top.offsetHeight;
+                                    const topX: number = top.getBoundingClientRect().left;
+                                    const topY: number = top.getBoundingClientRect().top;
+                                    const topWidth = top.offsetWidth;
+                                    const topHeight = top.offsetHeight;
 
-                                    // const taskX = task.getBoundingClientRect().left + window.scrollX;
-                                    // const taskY = task.getBoundingClientRect().top + window.scrollY;
-                                    // const taskWidth = task.offsetWidth;
-                                    // const taskHeight = task.offsetHeight;
+                                    const taskX: number = task.getBoundingClientRect().left;
+                                    const taskY: number = task.getBoundingClientRect().top;
+                                    const taskWidth = task.offsetWidth;
+                                    const taskHeight = task.offsetHeight;
 
-                                    console.log('task is minimized!!')
-                                    console.log('COPY: ', copy.style)
-                                    console.log('WINDOW: ', window)
+                                    copy.style.transform = `translate(${taskX}px, ${taskY}px)`;
+                                    copy.style.width = `${taskWidth}px`;
+                                    copy.style.height = `${taskHeight}px`;
+                                    copy.style.zIndex = `2`;
+                        
                                     copy.style.display = 'block';
+                                    await asyncDelay(1);
+                        
+                                    copy.style.transform = `translate(${topX + 2}px, ${topY + 2}px)`;
+                                    copy.style.width = `${topWidth - 4}px`;
+                                    copy.style.height = `${topHeight - 4}px`;
+                                    await asyncDelay(240);
+                                    // copy.style.zIndex = ``;
+                                    copy.style.display = '';
                                     window.style.visibility = '';
                                 }
 
