@@ -46,5 +46,16 @@
         "filename": "newfolder",
         "permissions": "rw",
         "contents": {}
+    },
+    "resume": {
+        "title": "Resume",
+        "formattedTitle": "Resume",
+        "id": "resume",
+        "body": "<iframe src='/resume.pdf#view=fitH' title='Resume' height='100%' width='100%' />",
+        "icon": "document-0",
+        "type": "text",
+        "filename": "resume.pdf",
+        "permissions": "r",
+        "contents": {}
     }
 }

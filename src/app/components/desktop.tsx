@@ -22,6 +22,7 @@ useEffect(() => {
     <div className={styles.container} ref={desktopRef}>
       <div className={styles.space}>
         <DesktopIcon name={'neighborhood'} />
+        <DesktopIcon id={styles['resume']} name={'resume'} />
         <Programs />
       </div>
       <TaskBar />

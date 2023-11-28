@@ -45,7 +45,7 @@ const StartMenu = () => {
                                       <img src="/w95_37.ico" alt="" /> </span> <p className={styles.title}>Programs</p>
                                     </MenuListItem>
                                     <MenuListItem className={styles.item}><span role='img' aria-label='documents'><img src="/documents-start.ico" alt="" /></span> <p className={styles.title}>Documents</p> </MenuListItem>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='settings'>📁</span> <p className={styles.title}>Settings</p> </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='settings'><img src="/w95_22.ico" alt="" /></span> <p className={styles.title}>Settings</p> </MenuListItem>
                                     <MenuListItem className={styles.item}><span role='img' aria-label='photos'> 👨‍💻</span> <p className={styles.title}>Photos</p> </MenuListItem>
                                     <MenuListItem className={styles.item}><span role='img' aria-label='resume'><img src="/document-0.ico" alt="" /></span> <p className={styles.title}>Resume</p> </MenuListItem>
                                     <Separator />

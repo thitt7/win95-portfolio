@@ -217,7 +217,7 @@ const Programs = () => {
                 <Draggable key={e.uuid} handle={`[class*=title]`} disabled={maxState[e.uuid]}>
                   <div className={styles.container} ref={setRef} tabIndex={i} onFocus={focusHandler} onBlur={focusHandler}>
                     <Resizable>
-                      <Window className={styles.window} onDrag={()=>{console.log('DRAGGINGGG')}}>
+                      <Window resizable className={styles.window} id={e?.id} onDrag={() => { console.log('DRAGGINGGG') }}>
                         <WindowHeader ref={setTopRef} className={styles.title} onDoubleClick={Maximize}>
                           <div className={styles.top}>
                             <figure><img src={`/${e.icon}.ico`} alt="" /></figure>
@@ -225,8 +225,8 @@ const Programs = () => {
                           </div>
                           <div className={styles.controlBtns}>
                             <div>
-                              <button onClick={Minimize} className={styles.min}><span/></button>
-                              <button onClick={Maximize} className={styles.max}><span/></button>
+                              <button onClick={Minimize} className={styles.min}><span /></button>
+                              <button onClick={Maximize} className={styles.max}><span /></button>
                             </div>
                             <button onClick={closeProgram}> <span className={styles.close} /> </button>
                           </div>
@@ -236,10 +236,13 @@ const Programs = () => {
                           <Button variant='menu' size='sm'> Edit </Button>
                           <Button variant='menu' size='sm' disabled> Save </Button>
                         </Toolbar>
-                        <WindowContent>
+                        <WindowContent className={styles.content}>
                           <article dangerouslySetInnerHTML={{ __html: e.body }}></article>
                           <p>UUID: {e.uuid}</p>
                         </WindowContent>
+                        <Frame variant='well' className={styles.footer}>
+                          Example footer content galore
+                        </Frame>
                       </Window>
                     </Resizable>
                   </div>

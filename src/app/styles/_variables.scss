@@ -2,6 +2,7 @@
 $icon-highlight: #000080;
 $window-bg: #c0c0c0;
 $window-blur-bg: #808080;
+$border-primary: #808080;
 
 /* Sizes */
 $icon-size: 32px;
@@ -60,3 +61,27 @@ $pointer: url(/cursors/pointer.cur);
         @include win95-pressed;
     }
 };
+
+@mixin win95-border-secondary {
+    position: relative;
+
+    &::before {
+        box-sizing: border-box;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-top-style: solid;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+        border-width: 2px;
+        border-left-color: $border-primary;
+        border-top-color: $border-primary;
+        border-right-color: white;
+        border-bottom-color: white;
+    }
+}
