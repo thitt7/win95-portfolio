@@ -14,6 +14,8 @@
     position: relative;
     flex-flow: column wrap;
     flex: 1;
+    max-height: 100%;
+    align-content: flex-start;
 
     .icon {
         color: black;
@@ -70,7 +72,7 @@
     overflow: hidden;
 
     #program {
-        @include win95-border;
+        @include win95-border-primary;
         
         cursor: $pointer, pointer;
         height: 35px;

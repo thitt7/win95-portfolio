@@ -26,11 +26,7 @@ const StartMenu = () => {
                             active={open}
                             style={{ fontWeight: 'bold' }}
                         >
-                            <img
-                                src={startImg}
-                                alt='react95 logo'
-                                style={{ height: '20px', marginRight: 4 }}
-                            />
+                            <img src={startImg} alt='react95 logo' style={{ height: '20px', marginRight: 4 }} />
                             Start
                         </Button>
                         {open && (

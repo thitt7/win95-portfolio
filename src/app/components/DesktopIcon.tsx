@@ -16,7 +16,7 @@ type Program = {
 
 const DesktopIcon = ({name}: {name?: string}) => {
 
-    const iconRef = useRef<Element>()
+    const iconRef = useRef<HTMLAnchorElement>({})
 
     // iconRef.current!.addEventListener("touchend", (e: any) => startTask(e));
 
@@ -37,7 +37,7 @@ const DesktopIcon = ({name}: {name?: string}) => {
   return (
       <>
           <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={startTask}>
-              <img className={styles.img} src={`/${program.icon}.ico`} alt="" />
+              <img className={styles.img} src={`/${program.icon}`} alt="" />
               <div className={styles.border}>
                   <p className={styles.text} dangerouslySetInnerHTML={{ __html: program.formattedTitle }}></p>
               </div>

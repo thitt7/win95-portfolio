@@ -8,12 +8,36 @@
     display: flex !important;
     flex-flow: column nowrap;
 
+    &.message {
+      // visibility: hidden;
+      transform: translate(-50%, -50%);
+      max-width: 700px;
+
+      .content {
+        background: initial;
+        box-shadow: none;
+
+        > div {
+          display: flex;
+          align-content: center;
+          align-items: center;
+
+          figure {padding: 10px;}
+          > div {padding: 5px;}
+        }
+      }
+    }
+
     * {user-select: none;}
 
     .content {
-      padding: 0;
+      padding: 5px;
       flex: 1;
       overflow-y: scroll;
+      scrollbar-width: none;
+      background: white;
+
+      @include win95-border-tertiary;
     }
 
     .controlBtns {
@@ -53,7 +77,7 @@
       }
 
       button {
-        @include win95-border;
+        @include win95-border-primary;
         @include win95-active;
         position: relative;
         cursor: $pointer, pointer;
@@ -256,12 +280,16 @@
 
     .footer {
       padding: 2px 4px;
+      margin-top: 2.5px;
       height: 25px;
       display: flex;
       align-items: center;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      border: none;
+
+      @include win95-border-secondary;
     }
   }
 }

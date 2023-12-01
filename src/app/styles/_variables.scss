@@ -3,6 +3,7 @@ $icon-highlight: #000080;
 $window-bg: #c0c0c0;
 $window-blur-bg: #808080;
 $border-primary: #808080;
+$border-secondary: #dfdfdf;
 
 /* Sizes */
 $icon-size: 32px;
@@ -12,42 +13,36 @@ $pointer: url(/cursors/pointer.cur);
 
 
 /* Mixins */
-@mixin win95-border {
+@mixin win95-border-primary {
     position: relative;
+    box-shadow: inset -1px -1px 0 1px black, inset 1px 1px 0px 1px white, inset -3px -3px 0 1px $border-primary, inset 3px 3px 0px 1px $border-secondary;
+    padding: 4px;
     
-    &::before {
-        box-sizing: border-box;
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        border-style: solid;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-width: 2px;
-        border-left-color: #fefefe;
-        border-top-color: #fefefe;
-        border-right-color: #0a0a0a;
-        border-bottom-color: #0a0a0a;
-        box-shadow: inset 1px 1px 0px 1px #dfdfdf,inset -1px -1px 0 1px #848584;
-    }
+    // &::before {
+    //     box-sizing: border-box;
+    //     content: '';
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     border-style: solid;
+    //     border-top-style: solid;
+    //     border-right-style: solid;
+    //     border-bottom-style: solid;
+    //     border-left-style: solid;
+    //     border-width: 2px;
+    //     border-left-color: #fefefe;
+    //     border-top-color: #fefefe;
+    //     border-right-color: #0a0a0a;
+    //     border-bottom-color: #0a0a0a;
+    //     box-shadow: inset 1px 1px 0px 1px $border-secondary,inset -1px -1px 0 1px #848584;
+    // }
     
 };
 
 @mixin win95-pressed {
-    &::before {
-        border-style: solid;
-        border-width: 2px;
-        border-left-color: #0a0a0a;
-        border-top-color: #0a0a0a;
-        border-right-color: #fefefe;
-        border-bottom-color: #fefefe;
-        box-shadow: inset 1px 1px 0px 1px #848584,inset -1px -1px 0 1px #dfdfdf;
-    }
+    box-shadow: inset -1px -1px 0 1px white, inset 1px 1px 0px 1px black, inset -3px -3px 0 1px $border-secondary, inset 3px 3px 0px 1px $border-primary;
 }
 
 @mixin win95-active {
@@ -63,25 +58,16 @@ $pointer: url(/cursors/pointer.cur);
 };
 
 @mixin win95-border-secondary {
-    position: relative;
+    box-shadow: inset 1px 1px 0px 1px $border-primary, inset -1px -1px 0 1px white;
+}
 
-    &::before {
-        box-sizing: border-box;
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        border-style: solid;
-        border-top-style: solid;
-        border-right-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-width: 2px;
-        border-left-color: $border-primary;
-        border-top-color: $border-primary;
-        border-right-color: white;
-        border-bottom-color: white;
+@mixin win95-border-tertiary {
+    box-shadow: inset 1px 1px 0px 1px $border-primary, inset -1px -1px 0 1px white, inset 3px 3px 0px 1px black, inset -3px -3px 0 1px $border-secondary;
+    padding: 4px;
+}
+
+@mixin win95-button {
+    button {
+        box-shadow: 1px 1px 0px 1px black, -1px -1px 0 1px black, 3px 3px 0px 1px black, inset -3px -3px 0 1px black;
     }
 }

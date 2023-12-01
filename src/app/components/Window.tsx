@@ -220,7 +220,7 @@ const Programs = () => {
                       <Window resizable className={styles.window} id={e?.id} onDrag={() => { console.log('DRAGGINGGG') }}>
                         <WindowHeader ref={setTopRef} className={styles.title} onDoubleClick={Maximize}>
                           <div className={styles.top}>
-                            <figure><img src={`/${e.icon}.ico`} alt="" /></figure>
+                            <figure><img src={`/${e.icon}`} alt="" /></figure>
                             <span>{e.title}</span>
                           </div>
                           <div className={styles.controlBtns}>
@@ -240,9 +240,11 @@ const Programs = () => {
                           <article dangerouslySetInnerHTML={{ __html: e.body }}></article>
                           <p>UUID: {e.uuid}</p>
                         </WindowContent>
-                        <Frame variant='well' className={styles.footer}>
-                          Example footer content galore
-                        </Frame>
+                        { e.contents ? 
+                          <Frame variant='well' className={styles.footer}> {`${e.contents.length} object(s)`} </Frame> :
+                          <Frame></Frame>
+                        }
+                        
                       </Window>
                     </Resizable>
                   </div>

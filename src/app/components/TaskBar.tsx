@@ -14,20 +14,21 @@ const TaskBar = () => {
 
     const ref = useRef<any>({});
 
-    // const [active, setActive] = useState(true)
-    const startImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAIVBMVEUAAAAAAACAAAD/AAAA/wAAgAAAAIAAAP///wCAgAD///8Zy0fQAAAAAXRSTlMAQObYZgAAAAFiS0dECmjQ9FYAAAAHdElNRQfiBhoAOBwkIrLGAAAAmUlEQVQoz7XRMQ7CMAwFUFsevNoMnMMiV+gFkDiIp+YKXdk4LnYiqEEdwdt/SuKvFuCvg6oqX3kIziw6J0Eyip6aLlfNs4KY0AKWAaAoAm+guBDvWAGL2HYAMqKES+y4DYBGZlDWgtFhj3PX7V579ICt9ngBzx5ewCP2HYCdOWGNHY8B0Nn9o4fzYY88rbXH+HClRx3BH//AJ8kFIO93liGNAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI2VDAwOjU2OjI4LTA0OjAwjfNqqgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNlQwMDo1NjoyOC0wNDowMPyu0hYAAAAASUVORK5CYII="
-
-    const currentDate = new Date();
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
+    // const [active, setActive] = useState(true);
+    const [hours, setHours] = useState(new Date().getHours() > 12 ? new Date().getHours() - 12 : new Date().getHours())
+    const [minutes, setMinutes] = useState(String(new Date().getMinutes()).padStart(2, '0'))
+    const startImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAIVBMVEUAAAAAAACAAAD/AAAA/wAAgAAAAIAAAP///wCAgAD///8Zy0fQAAAAAXRSTlMAQObYZgAAAAFiS0dECmjQ9FYAAAAHdElNRQfiBhoAOBwkIrLGAAAAmUlEQVQoz7XRMQ7CMAwFUFsevNoMnMMiV+gFkDiIp+YKXdk4LnYiqEEdwdt/SuKvFuCvg6oqX3kIziw6J0Eyip6aLlfNs4KY0AKWAaAoAm+guBDvWAGL2HYAMqKES+y4DYBGZlDWgtFhj3PX7V579ICt9ngBzx5ewCP2HYCdOWGNHY8B0Nn9o4fzYY88rbXH+HClRx3BH//AJ8kFIO93liGNAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI2VDAwOjU2OjI4LTA0OjAwjfNqqgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNlQwMDo1NjoyOC0wNDowMPyu0hYAAAAASUVORK5CYII=";
 
     useEffect(() => {
-        console.log('side effect in taskbar!!')
-    
-        const focusHandler = () => {
-            console.log("I AM FOCUSED!!!")
+        const setTime = async () => {
+            setHours(new Date().getHours() > 12 ? new Date().getHours() - 12 : new Date().getHours());
+            setMinutes(String(new Date().getMinutes()).padStart(2, '0'))
         }
-    })
+        const interval = setInterval(setTime,60*1000);
+        setTime();
+        
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <AppBar style={{ alignSelf: 'flex-end', width: '100%', top: 'revert', bottom: 0 }}>
@@ -96,7 +97,7 @@ const TaskBar = () => {
                                 return (
                                     <div onClick={taskClick} ref={setRef} data-active={active} id={styles['program']} key={i}>
                                         <div>
-                                            <figure><img src={`/${e.icon}.ico`} alt="" /></figure>
+                                            <figure><img src={`/${e.icon}`} alt="" /></figure>
                                             <span>{e.title}</span>
                                         </div>
                                     </div>
@@ -108,7 +109,7 @@ const TaskBar = () => {
                 {/* <TextInput placeholder='Search...' width={150} /> */}
                 <div id={styles['clock']}>
                     <figure><img src="/display_properties-2.ico" alt="" /></figure>
-                    <div id={styles['time']} dateime={Date.now()}>{`${hours}:${minutes} ${currentDate.getHours() < 12 ? 'AM' : 'PM'}`}</div>
+                    <div id={styles['time']} dateime={Date.now()}>{`${hours}:${minutes} ${new Date().getHours() < 12 ? 'AM' : 'PM'}`}</div>
                 </div>
             </Toolbar>
         </AppBar>
