@@ -9,10 +9,7 @@ const Message = ({ children, type, title}: { children: React.ReactNode, type: st
     const messageRef = useRef<any>();
     const cRef = useRef<any>();
     const [open, setOpen] = useState(true);
-
-    const style = {
-        transform: 'translate(-50%, -50%);'
-    }
+    const [focus, setFocus] = useState(cRef.current ? cRef.current.matches(':focus-within'): '')
     
     const closeMessage = () => {
         setOpen(false)
@@ -20,22 +17,30 @@ const Message = ({ children, type, title}: { children: React.ReactNode, type: st
 
     useLayoutEffect(() => {
         const message = messageRef.current;
-        const fn = async () => {
-            if (message) {
-                // message.style.transform = 'translate(-50%, -50%)';
-                // message.style.visibility = 'initial';
-                cRef.current.focus();
-            }
-        }
+        const fn = async () => { if (message) { cRef.current.focus(); } }
         fn();
-        
+
+        setFocus(cRef.current ? cRef.current.matches(':focus-within'): '');
+        const handleFocusChange = () => { setFocus(cRef.current ? cRef.current.matches(':focus-within'): ''); };
+        document.addEventListener('focusin', handleFocusChange);
+      
+        return () => { document.removeEventListener('focusin', handleFocusChange); };
     }, [])
+
+    // useEffect(() => {
+    //     setFocus(cRef.current ? cRef.current.matches(':focus-within'): '');
+    //     const handleFocusChange = () => { setFocus(cRef.current ? cRef.current.matches(':focus-within'): ''); };
+    //     document.addEventListener('focusin', handleFocusChange);
+      
+    //     return () => { document.removeEventListener('focusin', handleFocusChange); };
+    // }, [])
+    
     
 
     return open ? (
         <>
                 <Draggable handle={`[class*=title]`}>
-                    <div ref={cRef} className={styles.container} tabIndex={0} style={style}>
+                    <div ref={cRef} className={styles.container} tabIndex={0}>
                             <Window ref={messageRef} className={`${styles.window} ${styles.message}`}>
                                 <WindowHeader className={styles.title}>
                                     <div className={styles.top}> <span>{title}</span> </div>
@@ -47,8 +52,8 @@ const Message = ({ children, type, title}: { children: React.ReactNode, type: st
                                     <div className={styles.contentContainer}>
                                         <figure><img src={`/msg_${type}.ico`} alt={`${type} image`} /></figure>
                                         <div className={styles.body}>{children}</div>
-                                        <button onClick={closeMessage}>OK</button>
                                     </div>
+                                    <button onClick={closeMessage} data-active={focus}>OK</button>
                                 </WindowContent>
                             </Window>
                     </div>

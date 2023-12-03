@@ -2,11 +2,14 @@
 
 
   .window {
+    background: $window-bg;
     width: 100%;
     height: 100%;
     overflow: hidden;
     display: flex !important;
     flex-flow: column nowrap;
+    @include win95-window-border;
+    border: none;
 
     &.message {
       // visibility: hidden;
@@ -14,8 +17,11 @@
       max-width: 700px;
 
       .content {
-        background: initial;
+        background: $window-bg;
         box-shadow: none;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
 
         > div {
           display: flex;
@@ -25,10 +31,14 @@
           figure {padding: 10px;}
           > div {padding: 5px;}
         }
+
+        @include win95-button;
       }
     }
 
     * {user-select: none;}
+    
+    iframe {aspect-ratio: 8.5/11;}
 
     .content {
       padding: 5px;
@@ -61,7 +71,7 @@
           }
         }
 
-        .max {
+        .maxed {
           span {
             position: absolute;
             top: 19%;
@@ -191,13 +201,13 @@
 
   .resizable {
     position: absolute;
-    width: 400px;
-    height: 200px;
-    // transition: transform 1s 1s;
+    width: 100%;
+    height: 400px;
   
-    .wrapper {
-      position: relative;
-    }
+    // .wrapper {
+    //   width: 100%;
+    //   position: relative;
+    // }
   
     [class*=resizable-] {
       position: absolute;
@@ -295,6 +305,7 @@
 }
 
 .max {
+  width: auto !important;
   inset: 0;
   transform: none !important;
 

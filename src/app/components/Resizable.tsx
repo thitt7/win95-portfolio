@@ -16,7 +16,7 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
     useLayoutEffect(() => {
         const resizeableElement = Box.current!;
         resizeableElement.style.top = "50%";
-        resizeableElement.style.left = "50%";
+        // resizeableElement.style.left = "50%";
         resizeableElement.style.transform = `translate(-${(Box.current!.offsetWidth)/2}px, -${(Box.current!.offsetHeight)/2}px)`;
     }, [])
 
@@ -263,7 +263,7 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
     }, [])
 
   return (
-    <div className={styles.wrapper}>
+    // <div className={styles.wrapper}>
         <div ref={Box} className={styles.resizable}>
             {children}
             <span ref={Top} className='resizable-n'></span>
@@ -275,8 +275,8 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
             <span ref={NW} className='resizable-nw'></span>
             <span ref={SW} className='resizable-sw'></span>
         </div>
-    </div>
+    // </div>
   )
 }
 
-export default Resizable
+export default Resizable;

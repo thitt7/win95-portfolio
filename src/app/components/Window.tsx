@@ -21,14 +21,14 @@ const Programs = () => {
   const copyRef = useRef<any>({});
   const topRef = useRef<any>({});
 
-  // useEffect(() => {
-  //   console.log('REF: ',ref)
-  //   console.log('COPYREF: ',copyRef)
-  //   console.log('TOPREF: ',topRef)
+  useEffect(() => {
+    // console.log('REF: ',ref)
+    // console.log('COPYREF: ',copyRef)
+    // console.log('TOPREF: ',topRef)
    
-  //   tasks.forEach((element: any) => { console.log(element) });
-    
-  // })
+    // tasks.forEach((element: any) => { console.log(element) });
+    console.log('changing ref babyyy')
+  }, [ref])
 
   return (
     <>
@@ -38,11 +38,12 @@ const Programs = () => {
 
           const setRef = (el: any) => {
             // el?.focus()
-
+          
             if (el && !ref.current[e.uuid]) {
+              el.style.width = `${window.innerWidth / 3}px`;
               ref.current[e.uuid] = el;
-              const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
-              if (!window) {dispatch(setWindowRef({uuid: e.uuid, ref: el}))}
+              const windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+              if (!windowRef) {dispatch(setWindowRef({uuid: e.uuid, ref: el}))}
             } 
             else { delete ref.current[e.uuid] }
           }
@@ -226,7 +227,7 @@ const Programs = () => {
                           <div className={styles.controlBtns}>
                             <div>
                               <button onClick={Minimize} className={styles.min}><span /></button>
-                              <button onClick={Maximize} className={styles.max}><span /></button>
+                              <button onClick={Maximize} className={styles.maxed}><span /></button>
                             </div>
                             <button onClick={closeProgram}> <span className={styles.close} /> </button>
                           </div>
