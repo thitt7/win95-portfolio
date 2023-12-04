@@ -17,6 +17,7 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
         const resizeableElement = Box.current!;
         resizeableElement.style.top = "50%";
         // resizeableElement.style.left = "50%";
+        console.log('RESIZABLE WIDTH: ',Box.current!.offsetWidth)
         resizeableElement.style.transform = `translate(-${(Box.current!.offsetWidth)/2}px, -${(Box.current!.offsetHeight)/2}px)`;
     }, [])
 
