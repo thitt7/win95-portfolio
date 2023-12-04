@@ -15,10 +15,11 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
 
     useLayoutEffect(() => {
         const resizeableElement = Box.current!;
-        resizeableElement.style.top = "50%";
+        resizeableElement.style.transform = `translate(-50%, -50%)`;
+        // resizeableElement.style.top = "50%";
         // resizeableElement.style.left = "50%";
-        console.log('RESIZABLE WIDTH: ',Box.current!.offsetWidth)
-        resizeableElement.style.transform = `translate(-${(Box.current!.offsetWidth)/2}px, -${(Box.current!.offsetHeight)/2}px)`;
+        // console.log('RESIZABLE WIDTH: ',Box.current!.offsetWidth)
+        // resizeableElement.style.transform = `translate(-${(Box.current!.offsetWidth)/2}px, -${(Box.current!.offsetHeight)/2}px)`;
     }, [])
 
     useEffect(() => {
