@@ -4,7 +4,7 @@ import TaskBar from './TaskBar';
 import React, { useState, useRef, useEffect } from 'react';
 import DesktopIcon from './DesktopIcon';
 import { AppBar } from 'react95';
-import Programs from './Window';
+import Programs from './Programs';
 import Message from './Message';
 
 import styles from '../styles/desktop.module.scss';

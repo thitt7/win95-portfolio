@@ -146,6 +146,26 @@
         }
       }
 
+      .toolbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        // padding: 6px;
+
+        button {
+          color: black;
+          border: none;
+          background: none;
+          padding: 10px;
+          font-size: 1rem;
+
+          &:active {
+            background: $highlight;
+            color: white;
+          }
+        }
+      }
+
       .close {
         display: inline-block;
         width: 16px;
@@ -186,7 +206,7 @@
 
   &:not(:focus-within) {
     [class*=title] {
-      background: $window-blur-bg;
+      background: $border-primary;
       span {color: $window-bg;}
     }
   }
@@ -201,7 +221,7 @@
 
   .resizable {
     position: absolute;
-    width: 100%;
+    width: 800px;
     height: 400px;
   
     // .wrapper {

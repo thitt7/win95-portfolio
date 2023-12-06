@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from '../reducers/programSlice';
 import Link from 'next/link';
-import programs from '../../../public/programs.json'
+import programs from '../../../public/programs.json';
+import startTask from '@/lib/startTask.tsx';
 
 import styles from '../styles/desktop.module.scss';
 
@@ -24,10 +25,10 @@ const DesktopIcon = ({name}: {name?: string}) => {
     const tasks = useSelector((state) => state.program.tasks)
     const dispatch = useDispatch()
 
-    const startTask = (e: React.MouseEvent) => {
-        // setProgram((program) => {return {...program, running: true, windowed: true}})
-        dispatch(set({...program, running: true, windowed: true, uuid: uuidv4()}))
-    }
+    // const startTask = (e: React.MouseEvent) => {
+    //     // setProgram((program) => {return {...program, running: true, windowed: true}})
+    //     dispatch(set({...program, running: true, windowed: true, uuid: uuidv4()}))
+    // }
 
     useEffect(() => {
     //   iconRef.current ? iconRef.current!.addEventListener("touchend", (e: any) => startTask(e)) : ''
@@ -36,7 +37,7 @@ const DesktopIcon = ({name}: {name?: string}) => {
 
   return (
       <>
-          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={startTask}>
+          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={() => startTask(program)}>
               <img className={styles.img} src={`/${program.icon}`} alt="" />
               <div className={styles.border}>
                   <p className={styles.text} dangerouslySetInnerHTML={{ __html: program.formattedTitle }}></p>
@@ -46,4 +47,4 @@ const DesktopIcon = ({name}: {name?: string}) => {
   )
 }
 
-export default DesktopIcon
+export default DesktopIcon;

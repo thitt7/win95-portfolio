@@ -25,16 +25,7 @@ const Message = ({ children, type, title}: { children: React.ReactNode, type: st
         document.addEventListener('focusin', handleFocusChange);
       
         return () => { document.removeEventListener('focusin', handleFocusChange); };
-    }, [])
-
-    // useEffect(() => {
-    //     setFocus(cRef.current ? cRef.current.matches(':focus-within'): '');
-    //     const handleFocusChange = () => { setFocus(cRef.current ? cRef.current.matches(':focus-within'): ''); };
-    //     document.addEventListener('focusin', handleFocusChange);
-      
-    //     return () => { document.removeEventListener('focusin', handleFocusChange); };
-    // }, [])
-    
+    }, []) 
     
 
     return open ? (

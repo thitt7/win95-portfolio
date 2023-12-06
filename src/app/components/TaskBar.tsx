@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import StartMenu from './StartMenu';
 import { AppBar, Button, MenuList, MenuListItem, Separator, TextInput, Toolbar } from 'react95';
@@ -39,11 +41,10 @@ const TaskBar = () => {
                         tasks.map((e: any, i: number) => {
 
                             const setRef = (el: any) => {
-                                // el?.focus()
                     
                                 if (el && !ref.current[e.uuid]) {
                                   ref.current[e.uuid] = el;
-                                  let windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+                                  const windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
                                   if (!windowRef) {dispatch(setTaskRef({uuid: e.uuid, ref: el}))}
                                 } 
                                 // else { delete ref.current[e.uuid] }
@@ -52,7 +53,6 @@ const TaskBar = () => {
                             const active = (tasks.find((obj: any) => obj.uuid === e.uuid)).active;
 
                             const taskClick = async () => {
-                                // if (!active) {}
                                 const min = (tasks.find((obj: any) => obj.uuid === e.uuid)).min;
                                 const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
                                 const task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
@@ -95,7 +95,7 @@ const TaskBar = () => {
 
                             if (Object.keys(e).length){
                                 return (
-                                    <div onClick={taskClick} ref={setRef} data-active={active} id={styles['program']} key={i}>
+                                    <div onClick={taskClick} ref={setRef} data-active='false' id={styles['program']} key={i}>
                                         <div>
                                             <figure><img src={`/${e.icon}`} alt="" /></figure>
                                             <span>{e.title}</span>
@@ -109,7 +109,7 @@ const TaskBar = () => {
                 {/* <TextInput placeholder='Search...' width={150} /> */}
                 <div id={styles['clock']}>
                     <figure><img src="/display_properties-2.ico" alt="" /></figure>
-                    <div id={styles['time']} dateime={Date.now()}>{`${hours}:${minutes} ${new Date().getHours() < 12 ? 'AM' : 'PM'}`}</div>
+                    <div id={styles['time']} datetime={Date.now()}>{`${hours}:${minutes} ${new Date().getHours() < 12 ? 'AM' : 'PM'}`}</div>
                 </div>
             </Toolbar>
         </AppBar>
