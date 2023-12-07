@@ -1,7 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { set } from '../reducers/programSlice';
 import Link from 'next/link';
 import programs from '../../../public/programs.json';
 import startTask from '@/lib/startTask.tsx';
