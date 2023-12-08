@@ -30,5 +30,7 @@
 
     .icons {
         flex-grow: 1;
+
+        img {max-width: 32px;}
     }
 }

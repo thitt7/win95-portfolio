@@ -21,7 +21,7 @@ const startStyles = {
 const StartMenu = () => {
   
   const dispatch = useDispatch()
-  const {menu} = useSelector((state: any) => state.program, shallowEqual)
+  const {menu} = useSelector((state: any) => state.menu)
 
   const [open, setOpen] = useState<boolean>(false);
   const startImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAIVBMVEUAAAAAAACAAAD/AAAA/wAAgAAAAIAAAP///wCAgAD///8Zy0fQAAAAAXRSTlMAQObYZgAAAAFiS0dECmjQ9FYAAAAHdElNRQfiBhoAOBwkIrLGAAAAmUlEQVQoz7XRMQ7CMAwFUFsevNoMnMMiV+gFkDiIp+YKXdk4LnYiqEEdwdt/SuKvFuCvg6oqX3kIziw6J0Eyip6aLlfNs4KY0AKWAaAoAm+guBDvWAGL2HYAMqKES+y4DYBGZlDWgtFhj3PX7V579ICt9ngBzx5ewCP2HYCdOWGNHY8B0Nn9o4fzYY88rbXH+HClRx3BH//AJ8kFIO93liGNAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI2VDAwOjU2OjI4LTA0OjAwjfNqqgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNlQwMDo1NjoyOC0wNDowMPyu0hYAAAAASUVORK5CYII="
@@ -32,9 +32,20 @@ const StartMenu = () => {
   }
 
   useEffect(() => {
-    const ex: any = programs['github'];
-    dispatch(set({...ex}))
+    const resume: any = programs['resume'];
+    const git: any = programs['github'];
+    const ie: any = programs['iexplorer'];
+    const settings: any = programs['settings'];
+    // dispatch(set([resume, git, ie, settings]))
+    console.log('MENU SHIT: ', [resume, git, ie, settings])
+    console.log('MENU SHIT: ', JSON.stringify([resume, git, ie, settings]))
+    console.log('MENU: ', menu)
   }, [])
+
+  useEffect(() => {
+    console.log('MENU: ', menu)
+  })
+  
   
 
   return (
@@ -54,11 +65,19 @@ const StartMenu = () => {
                                 <div style={{display: 'flex', alignItems: 'stretch'}}>
                                 <aside className={styles.side}> <img src={win95startsidebar} alt="start menu " /> </aside>
                                   <div className={styles.icons}>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='programs'> <img src="/w95_37.ico" alt="" /> </span> <p className={styles.title}>Programs</p> </MenuListItem>
+                                    {
+                                      menu.map((e: any) => {
+                                        return (
+                                          <MenuListItem className={styles.item}><span role='img' aria-label={e.title}><img src={`/${e.icon}`} alt={`${e.title} icon`} /></span> <p className={styles.title}>{e.title}</p> </MenuListItem>
+                                        )
+                                      })
+                                    }
+                                    {/* <MenuListItem className={styles.item}><span role='img' aria-label='programs'> <img src="/w95_37.ico" alt="" /> </span> <p className={styles.title}>Programs</p> </MenuListItem>
                                     <MenuListItem className={styles.item}><span role='img' aria-label='documents'><img src="/documents-start.ico" alt="" /></span> <p className={styles.title}>Documents</p> </MenuListItem>
                                     <MenuListItem className={styles.item}><span role='img' aria-label='settings'><img src="/w95_22.ico" alt="" /></span> <p className={styles.title}>Settings</p> </MenuListItem>
                                     <MenuListItem className={styles.item}><span role='img' aria-label='photos'> 👨‍💻</span> <p className={styles.title}>Photos</p> </MenuListItem>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='resume'><img src="/document-0.ico" alt="" /></span> <p className={styles.title}>Resume</p> </MenuListItem>
+                                    <MenuListItem className={styles.item}><span role='img' aria-label='resume'><img src="/document-0.ico" alt="" /></span> <p className={styles.title}>Resume</p> </MenuListItem> */}
+                                    
                                     <Separator />
                                     <MenuListItem className={styles.item}><span role='img' aria-label='shut down'><img src="/w95_46.ico" alt="" /> </span> <p className={styles.title}>Shut Down...</p> </MenuListItem>
                                   </div>
