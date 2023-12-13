@@ -3,19 +3,19 @@ import { Separator } from 'react95';
 import Popover from '@mui/material/Popover';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import startTask from '@/lib/startTask';
-import { set, add, remove } from '../reducers/desktopSlice';
+import { set, add, remove } from '../../reducers/desktopSlice';
 
-import styles from '../styles/popover.module.scss';
+import styles from '../../styles/popover.module.scss';
 
 type popoverProps = {
+    children?: React.ReactNode,
     coords: {x: number, y: number},
     open: boolean,
-    type: string,
     task: any,
     close: () => void
 }
 
-const ContextPopover = ({ coords, open, type, task, close }: popoverProps) => {
+const ContextPopover = ({ children, coords, open, task, close }: popoverProps) => {
 
   // const {items} = useSelector((state) => state.desktop);
   const dispatch = useDispatch();
@@ -26,38 +26,6 @@ const ContextPopover = ({ coords, open, type, task, close }: popoverProps) => {
     //     console.log('OPEN PROP: ', open)
     //     console.log('OPENSTATE: ', openState)
     //   })
-
-    const Open = () => {
-      close();
-      startTask(task);
-    }
-    
-    const Delete = () => {
-      close();
-      dispatch(remove(task));
-    }
-
-    const variant: any = {
-      icon: <>
-      <strong><li onClick={Open}>Open</li></strong>
-      <li>Explore</li>
-      <li>Find...</li>
-      <Separator className={styles.divider}/>
-      <li>Format...</li>
-      <Separator className={styles.divider}/>
-      <li>Send To</li>
-      <Separator className={styles.divider}/>
-      <li>Cut</li>
-      <li>Copy</li>
-      <Separator className={styles.divider}/>
-      <li>Add to Start</li>
-      <li>Create Shortcut</li>
-      <li onClick={Delete}>Delete</li>
-      <li>Rename</li>
-      <Separator className={styles.divider}/>
-      <li>Properties</li>
-      </>
-    }
 
   return (
       <Popover
@@ -70,7 +38,7 @@ const ContextPopover = ({ coords, open, type, task, close }: popoverProps) => {
         TransitionComponent={undefined}
         onClose={blurHandler}
       >
-        {variant[type]}
+        {children}
       </Popover>
   )
 }

@@ -4,11 +4,11 @@ import TaskBar from './TaskBar';
 import React, { useState, useRef, useEffect } from 'react';
 import DesktopIcon from './DesktopIcon';
 import { AppBar } from 'react95';
-import Programs from './Programs';
-import Message from './Message';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { set, add, remove } from '../reducers/desktopSlice';
 import startTask from '@/lib/startTask';
+import Programs from './Programs';
+import StartMessage from './Messages/StartMessage';
 
 import styles from '../styles/desktop.module.scss';
 
@@ -48,7 +48,7 @@ useEffect(() => {
         
         <Programs />
 
-        <Message type={message.type} title={message.title}>{message.body}</Message>
+        <StartMessage type={message.type} title={message.title}>{message.body}</StartMessage>
       </div>
       <TaskBar />
     </div>

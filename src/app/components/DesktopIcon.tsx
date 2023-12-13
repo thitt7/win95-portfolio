@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import programs from '../../../public/programs.json';
 import startTask from '@/lib/startTask.tsx';
-import ContextPopover from './Popover';
+import IconPopover from './ContextMenus/IconPopover';
+import ContextPopover from './ContextMenus/Popover';
 
 import styles from '../styles/desktop.module.scss';
 
@@ -48,7 +49,7 @@ const DesktopIcon = ({task}: {task: any}) => {
                   <p className={styles.text} dangerouslySetInnerHTML={{ __html: task.title }}></p>
               </div>
           </Link>
-          <ContextPopover coords={coords} open={popover} type={'icon'} task={task} close={close}></ContextPopover>
+          <IconPopover coords={coords} open={popover} task={task} close={close}></IconPopover>
       </>
   )
 }

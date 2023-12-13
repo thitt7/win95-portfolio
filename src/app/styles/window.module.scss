@@ -31,6 +31,7 @@
 
           figure {padding: 10px;}
           > div {padding: 5px;}
+          img {max-width: 32px;}
         }
 
         @include win95-button;

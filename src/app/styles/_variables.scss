@@ -61,11 +61,16 @@ $loading: url(/cursors/loading.cur);
         margin: 10px;
         width: 100px;
 
-        &[data-active=true] {
+        &:focus {
             border: 2px solid black;
             outline: 2px dotted black;
             outline-offset: -10px;
         }
+        // &[data-active=true] {
+        //     border: 2px solid black;
+        //     outline: 2px dotted black;
+        //     outline-offset: -10px;
+        // }
         &:active {
             box-shadow: inset 1px 1px 0px 1px $border-primary, inset -1px -1px 0 1px $border-primary;
         }

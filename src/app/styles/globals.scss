@@ -97,7 +97,7 @@ a {
   pointer-events: none;
 
   span[class*=close] {
-    &::before, &::after {background-color: $border-primary;}
+    &::before, &::after {background-color: $border-primary !important;}
   }
 }
 
