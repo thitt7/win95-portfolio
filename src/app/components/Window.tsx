@@ -209,7 +209,7 @@ const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task
             <Draggable key={task.uuid} handle={`[class*=title]`} disabled={maxState[task.uuid]}>
               <div className={styles.container} ref={setRef} tabIndex={i} onFocus={focusHandler} onBlur={focusHandler}>
                 <Resizable>
-                  <Window resizable className={styles.window} id={task?.id} onDrag={() => { console.log('DRAGGINGGG') }}>
+                  <Window resizable className={''} id={`${styles['window']}`} onDrag={() => { console.log('DRAGGINGGG') }}>
                     <WindowHeader ref={setTopRef} className={styles.title} onDoubleClick={Maximize}>
                       <div className={styles.top}>
                         <figure><img src={`/${task.icon}`} alt="" /></figure>

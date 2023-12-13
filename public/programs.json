@@ -1,7 +1,7 @@
 {
     "neighborhood": {
         "title": "Network Neighborhood",
-        "formattedTitle": "Network<br/>Neighborhood",
+        "name": "neighborhood",
         "body": "this is some example text",
         "toolbar": "",
         "icon": "w95_18.ico",
@@ -11,7 +11,7 @@
     },
     "recycle": {
         "title": "Recycle Bin",
-        "formattedTitle": "Recycle Bin",
+        "name": "recycle",
         "body": "",
         "toolbar": "",
         "icon": "w95_32.ico",
@@ -23,7 +23,7 @@
     },
     "drive": {
         "title": "(C:)",
-        "formattedTitle": "(C:)",
+        "name": "drive",
         "body": "",
         "toolbar": "",
         "icon": "w95_9.ico",
@@ -34,7 +34,7 @@
     },
     "cpanel": {
         "title": "Control Panel",
-        "formattedTitle": "Control Panel",
+        "name": "cpanel",
         "body": "",
         "toolbar": "",
         "icon": "w95_36.ico",
@@ -44,27 +44,27 @@
     },
     "programs": {
         "title": "Programs",
-        "formattedTitle": "Programs",
+        "name": "programs",
         "body": "",
         "toolbar": "",
         "icon": "w95_37.ico",
         "type": "text",
-        "filename": "cpanel.exe",
+        "filename": "programs.exe",
         "permissions": "r"
     },
     "settings": {
         "title": "Settings",
-        "formattedTitle": "Settings",
+        "name": "settings",
         "body": "",
         "toolbar": "",
         "icon": "w95_22.ico",
         "type": "text",
-        "filename": "cpanel.exe",
+        "filename": "settings.exe",
         "permissions": "r"
     },
     "folder": {
         "title": "New Folder",
-        "formattedTitle": "New Folder",
+        "name": "folder",
         "body": "",
         "toolbar": "",
         "icon": "w95_4.ico",
@@ -75,7 +75,7 @@
     },
     "resume": {
         "title": "Resume",
-        "formattedTitle": "Resume",
+        "name": "resume",
         "id": "resume",
         "body": "<iframe src='/resume.pdf#view=fitH' title='Resume' height='100%' width='100%' />",
         "toolbar": "",
@@ -86,18 +86,29 @@
     },
     "github": {
         "title": "Github",
-        "formattedTitle": "Github",
+        "name": "github",
         "id": "github",
-        "body": "<iframe src='https://github.com/thitt7' title='Github' height='100%' width='100%' />",
-        "toolbar": "",
-        "icon": "github.svg",
+        "body": "",
+        "toolbar": "<a href='https://github.com/thitt7' target='_blank'><button>My Profile</button></a>",
+        "icon": "github.png",
         "type": "text",
         "filename": "github.exe",
         "permissions": "r"
     },
+    "linkedin": {
+        "title": "LinkedIn",
+        "name": "linkedin",
+        "id": "linkedin",
+        "body": "",
+        "toolbar": "<a href='https://www.linkedin.com/in/tristan-hitt/' target='_blank'><button>My Profile</button></a>",
+        "icon": "linkedin.png",
+        "type": "text",
+        "filename": "linkedin.exe",
+        "permissions": "r"
+    },
     "codepen": {
         "title": "Codepen",
-        "formattedTitle": "Codepen",
+        "name": "codepen",
         "id": "codepen",
         "body": "<iframe style='width: 100%;' scrolling='no' title='Windows 95 Borders' src='https://codepen.io/biscuitboy17/embed/PoVdbMR?default-tab=html%2Cresult&theme-id=dark' frameborder='no' loading='lazy' allowtransparency='true' allowfullscreen='true'></iframe>",
         "toolbar": "<a href='https://codepen.io/biscuitboy17' target='_blank'><button>My Profile</button></a>",
@@ -108,7 +119,7 @@
     },
     "iexplorer": {
         "title": "Internet Explorer",
-        "formattedTitle": "Internet Explorer",
+        "name": "iexplorer",
         "id": "iexplorer",
         "body": "",
         "toolbar": "",

@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Windows 95',
-  description: 'Discover the community site for Sachse, Texas. The go-to source for the latest news, events, job opportunities, and up-to-date resources.',
+  title: 'Windows 95 - A portfolio for Tristan Hitt',
+  description: 'Check out my portfolio in a nostalgic nod to Windows 95. Relive the original modern desktop experience while learning a bit about me!',
 
   generator: 'Next.js',
   applicationName: 'Next.js',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Tristan Hitt', url: 'https://tristanhitt.com' }],
   colorScheme: 'dark',
   creator: 'Tristan Hitt',
-  publisher: 'Sachse Community Site',
+  publisher: 'Tristan Hitt',
   formatDetection: {
     email: true,
     address: true,
@@ -36,15 +36,15 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: 'Sachse Community Site - Sachse, Texas Updates & More',
-    description: 'Discover the community site for Sachse, Texas. The go-to source for the latest news, events, job opportunities, and up-to-date resources.',
-    url: `https://sachse.city`,
+    title: 'Windows 95 - A portfolio for Tristan Hitt',
+    description: 'Check out my portfolio in a nostalgic nod to Windows 95. Relive the original modern desktop experience while learning a bit about me!',
+    url: `https://tristanhitt.com`,
     publishedTime: new Date().toISOString(),
     authors: ['Tristan Hitt'],
-    siteName: 'sachse.city',
+    siteName: 'tristanhitt.com',
     images: [
       {
-        url: '/banner-full.jpg',
+        url: '',
         width: 800,
         height: 600,
       },
@@ -56,12 +56,12 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '',
-    title: 'Sachse Community Site - Sachse, Texas Updates & More',
-    description: 'Discover the community site for Sachse, Texas. The go-to source for the latest news, events, job opportunities, and up-to-date resources.',
+    title: 'Windows 95 - A portfolio for Tristan Hitt',
+    description: 'Check out my portfolio in a nostalgic nod to Windows 95. Relive the original modern desktop experience while learning a bit about me!',
     siteId: '',
     creator: '',
     creatorId: '',
-    images: '/banner-full.jpg',
+    images: '',
   },
 }
 

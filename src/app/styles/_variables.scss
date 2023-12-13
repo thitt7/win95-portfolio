@@ -23,6 +23,7 @@ $loading: url(/cursors/loading.cur);
 
 @mixin win95-window-border {
     box-shadow: inset -1px -1px 0 1px black, inset 1px 1px 0px 1px $border-secondary, inset -3px -3px 0 1px $border-primary, inset 3px 3px 0px 1px white;
+    padding: 4px;
 }
 
 @mixin win95-border-secondary {

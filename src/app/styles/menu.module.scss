@@ -16,6 +16,7 @@
     bottom: '100%';
 
     .item {
+        cursor: $pointer, pointer;
         gap: 12px;
 
         .title {

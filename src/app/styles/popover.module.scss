@@ -1,0 +1,28 @@
+@use 'variables' as *;
+
+#popover {
+
+    [class*=MuiPopover-paper] {
+        @include win95-window-border;
+        transition: none !important;
+        background: $window-bg;
+        border-radius: 0;
+        display: flex;
+        flex-flow: column;
+    }
+
+    li {
+        padding: 5px 40px;
+
+        &:hover {
+            background: $highlight;
+            color: white;
+        }
+    }
+
+    .divider {
+        width: 98%;
+        align-self: center;
+        // margin: 3px 0;
+    }
+}

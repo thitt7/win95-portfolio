@@ -6,6 +6,9 @@ import DesktopIcon from './DesktopIcon';
 import { AppBar } from 'react95';
 import Programs from './Programs';
 import Message from './Message';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { set, add, remove } from '../reducers/desktopSlice';
+import startTask from '@/lib/startTask';
 
 import styles from '../styles/desktop.module.scss';
 
@@ -21,7 +24,11 @@ export function Desktop() {
 
   const desktopRef = useRef<any>()
 
+  const {items} = useSelector((state) => state.desktop);
+  const dispatch = useDispatch();
+
 useEffect(() => {
+  console.log('ITEMS: ', items)
   if (desktopRef.current) {desktopRef.current.style.paddingBottom = `${document.querySelector('header')?.offsetHeight}px`}
 })
 
@@ -29,14 +36,18 @@ useEffect(() => {
   return (
     <div className={styles.container} ref={desktopRef}>
       <div className={styles.space}>
-        <DesktopIcon name={'neighborhood'} />
-        <DesktopIcon name={'recycle'}/>
-        <DesktopIcon name={'drive'}/>
-        <DesktopIcon name={'iexplorer'} />
-        <DesktopIcon name={'resume'} />
-        <DesktopIcon name={'github'}/>
-        <DesktopIcon name={'codepen'}/>
+        {items.map((e: any) => {
+          if (Object.keys(e).length) {
+            return (
+              <>
+                <DesktopIcon task={e}/>
+              </>
+            )
+          }
+        })}
+        
         <Programs />
+
         <Message type={message.type} title={message.title}>{message.body}</Message>
       </div>
       <TaskBar />

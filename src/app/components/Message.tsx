@@ -32,7 +32,7 @@ const Message = ({ children, type, title}: { children: React.ReactNode, type: st
         <>
                 <Draggable handle={`[class*=title]`}>
                     <div ref={cRef} className={styles.container} tabIndex={0}>
-                            <Window ref={messageRef} className={`${styles.window} ${styles.message}`}>
+                            <Window ref={messageRef} className={`${styles.message}`} id={styles['window']}>
                                 <WindowHeader className={styles.title}>
                                     <div className={styles.top}> <span>{title}</span> </div>
                                     <div className={styles.controlBtns}>

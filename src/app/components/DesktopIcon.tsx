@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import programs from '../../../public/programs.json';
 import startTask from '@/lib/startTask.tsx';
+import ContextPopover from './Popover';
 
 import styles from '../styles/desktop.module.scss';
 
@@ -13,34 +14,41 @@ type Program = {
 
 }
 
-const DesktopIcon = ({name}: {name?: string}) => {
+const DesktopIcon = ({task}: {task: any}) => {
 
     const iconRef = useRef<HTMLAnchorElement>({})
 
     // iconRef.current!.addEventListener("touchend", (e: any) => startTask(e));
 
-    const [program, setProgram] = useState(programs[`${name as keyof typeof programs}`])
-    const tasks = useSelector((state) => state.program.tasks)
-    const dispatch = useDispatch()
+    // const [program, setProgram] = useState(programs[`${name as keyof typeof programs}`]);
+    const [popover, setPopover] = useState(false);
+    const [coords, setCoords] = useState<{x: number, y: number}>({x: 0, y: 0})
 
-    // const startTask = (e: React.MouseEvent) => {
-    //     // setProgram((program) => {return {...program, running: true, windowed: true}})
-    //     dispatch(set({...program, running: true, windowed: true, uuid: uuidv4()}))
-    // }
+    const tasks = useSelector((state) => state.program.tasks);
+    const dispatch = useDispatch();
 
     useEffect(() => {
     //   iconRef.current ? iconRef.current!.addEventListener("touchend", (e: any) => startTask(e)) : ''
     })
+
+    const secondaryclickHandler = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setCoords({x: e.clientX, y: e.clientY})
+        setPopover(true);
+    }
+
+    const close = () => {setPopover(false)}
     
 
   return (
       <>
-          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={() => startTask(program)}>
-              <img className={styles.img} src={`/${program.icon}`} alt="" />
+          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={() => startTask(task)} onContextMenu={secondaryclickHandler}>
+              <img className={styles.img} src={`/${task.icon}`} alt="" />
               <div className={styles.border}>
-                  <p className={styles.text} dangerouslySetInnerHTML={{ __html: program.formattedTitle }}></p>
+                  <p className={styles.text} dangerouslySetInnerHTML={{ __html: task.title }}></p>
               </div>
           </Link>
+          <ContextPopover coords={coords} open={popover} type={'icon'} task={task} close={close}></ContextPopover>
       </>
   )
 }
