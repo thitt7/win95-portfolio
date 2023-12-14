@@ -5,7 +5,7 @@
         "body": "this is some example text",
         "toolbar": "",
         "icon": "w95_18.ico",
-        "type": "text",
+        "type": "file",
         "filename": "networkneighborhood.exe",
         "permissions": "r"
     },
@@ -16,7 +16,7 @@
         "toolbar": "",
         "icon": "w95_32.ico",
         "icon-full": "w95_33",
-        "type": "text",
+        "type": "folder",
         "filename": "recyclebin.exe",
         "permissions": "r",
         "contents": []
@@ -27,7 +27,7 @@
         "body": "",
         "toolbar": "",
         "icon": "w95_9.ico",
-        "type": "text",
+        "type": "folder",
         "filename": "drive",
         "permissions": "r",
         "contents": []
@@ -38,7 +38,7 @@
         "body": "",
         "toolbar": "",
         "icon": "w95_36.ico",
-        "type": "text",
+        "type": "file",
         "filename": "cpanel.exe",
         "permissions": "r"
     },
@@ -48,7 +48,7 @@
         "body": "",
         "toolbar": "",
         "icon": "w95_37.ico",
-        "type": "text",
+        "type": "folder",
         "filename": "programs.exe",
         "permissions": "r"
     },
@@ -58,7 +58,7 @@
         "body": "",
         "toolbar": "",
         "icon": "w95_22.ico",
-        "type": "text",
+        "type": "file",
         "filename": "settings.exe",
         "permissions": "r"
     },
@@ -80,7 +80,7 @@
         "body": "<iframe src='/resume.pdf#view=fitH' title='Resume' height='100%' width='100%' />",
         "toolbar": "",
         "icon": "document-0.ico",
-        "type": "text",
+        "type": "file",
         "filename": "resume.pdf",
         "permissions": "r"
     },
@@ -91,7 +91,7 @@
         "body": "",
         "toolbar": "<a href='https://github.com/thitt7' target='_blank'><button>My Profile</button></a>",
         "icon": "github.png",
-        "type": "text",
+        "type": "file",
         "filename": "github.exe",
         "permissions": "r"
     },
@@ -102,7 +102,7 @@
         "body": "",
         "toolbar": "<a href='https://www.linkedin.com/in/tristan-hitt/' target='_blank'><button>My Profile</button></a>",
         "icon": "linkedin.png",
-        "type": "text",
+        "type": "file",
         "filename": "linkedin.exe",
         "permissions": "r"
     },
@@ -113,7 +113,7 @@
         "body": "<iframe style='width: 100%;' scrolling='no' title='Windows 95 Borders' src='https://codepen.io/biscuitboy17/embed/PoVdbMR?default-tab=html%2Cresult&theme-id=dark' frameborder='no' loading='lazy' allowtransparency='true' allowfullscreen='true'></iframe>",
         "toolbar": "<a href='https://codepen.io/biscuitboy17' target='_blank'><button>My Profile</button></a>",
         "icon": "codepen-white.png",
-        "type": "text",
+        "type": "file",
         "filename": "codepen.exe",
         "permissions": "r"
     },
@@ -124,7 +124,7 @@
         "body": "",
         "toolbar": "",
         "icon": "iexplorer.ico",
-        "type": "text",
+        "type": "file",
         "filename": "iexplorer.exe",
         "permissions": "r"
     }

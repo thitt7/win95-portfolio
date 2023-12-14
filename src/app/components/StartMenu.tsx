@@ -36,15 +36,15 @@ const StartMenu = () => {
     const git: any = programs['github'];
     const ie: any = programs['iexplorer'];
     const settings: any = programs['settings'];
-    // dispatch(set([resume, git, ie, settings]))
+   
     console.log('MENU SHIT: ', [resume, git, ie, settings])
     console.log('MENU SHIT: ', JSON.stringify([resume, git, ie, settings]))
-    console.log('MENU: ', menu)
+    // console.log('MENU: ', menu)
   }, [])
 
-  useEffect(() => {
-    console.log('MENU: ', menu)
-  })
+  // useEffect(() => {
+  //   console.log('MENU: ', menu)
+  // })
   
   
 

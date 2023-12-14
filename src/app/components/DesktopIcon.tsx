@@ -8,6 +8,8 @@ import ContextPopover from './ContextMenus/Popover';
 
 import styles from '../styles/desktop.module.scss';
 
+type GenericDragEvent<T = HTMLElement> = React.DragEvent<T>
+
 type Program = {
     title: string,
     icon: string,
@@ -17,7 +19,7 @@ type Program = {
 
 const DesktopIcon = ({task}: {task: any}) => {
 
-    const iconRef = useRef<HTMLAnchorElement>({})
+    const iconRef = useRef<HTMLAnchorElement>()
 
     // iconRef.current!.addEventListener("touchend", (e: any) => startTask(e));
 
@@ -29,7 +31,20 @@ const DesktopIcon = ({task}: {task: any}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-    //   iconRef.current ? iconRef.current!.addEventListener("touchend", (e: any) => startTask(e)) : ''
+        //   iconRef.current ? iconRef.current!.addEventListener("touchend", (e: any) => startTask(e)) : '';
+        const icon = iconRef.current;
+        if (task.name == 'recycle' && icon) {
+            icon.style.color = 'teal';
+            icon.addEventListener('dragenter', dragEnterHandler);
+            icon.addEventListener('dragover', dragOverHandler);
+            icon.addEventListener('drop', dropHandler);
+        }
+
+        return () => {
+            icon.removeEventListener('dragenter', dragEnterHandler);
+            icon.removeEventListener('dragover', dragOverHandler);
+            icon.removeEventListener('drop', dropHandler);
+        };
     })
 
     const secondaryclickHandler = (e: React.MouseEvent) => {
@@ -38,12 +53,33 @@ const DesktopIcon = ({task}: {task: any}) => {
         setPopover(true);
     }
 
+    const dragStartHandler = (e: React.DragEvent) => {
+        // e.preventDefault();
+        e.dataTransfer.setData('text/plain', JSON.stringify(task))
+        console.log('dragging')
+    }
+
+    const dragEnterHandler = (e: Event) => {
+        e.preventDefault();
+    }
+
+    const dragOverHandler = (e: Event) => {
+        e.preventDefault();
+    }
+
+    const dropHandler = (e: any) => {
+        e.preventDefault();
+        console.log('DROPEVENT: ', e);
+        const eventData = e.dataTransfer.getData('text/plain')
+        console.log('EVENT TRANSFER: ', eventData)
+    }
+
     const close = () => {setPopover(false)}
     
 
   return (
       <>
-          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={() => startTask(task)} onContextMenu={secondaryclickHandler}>
+          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={() => startTask(task)} onDragStart={dragStartHandler} onContextMenu={secondaryclickHandler}>
               <img className={styles.img} src={`/${task.icon}`} alt="" />
               <div className={styles.border}>
                   <p className={styles.text} dangerouslySetInnerHTML={{ __html: task.title }}></p>
