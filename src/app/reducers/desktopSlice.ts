@@ -3,7 +3,7 @@ import programs from '../../../public/programs.json';
 
 const initialState = {items: [
     programs['neighborhood'],
-    programs['recycle'],
+    // programs['recycle'],
     programs['drive'],
     programs['iexplorer'],
     programs['resume'],

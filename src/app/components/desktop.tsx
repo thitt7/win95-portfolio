@@ -8,6 +8,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { set, add, remove } from '../reducers/desktopSlice';
 import startTask from '@/lib/startTask';
 import Programs from './Programs';
+import RecycleIcon from './Recycle';
 import StartMessage from './Messages/StartMessage';
 
 import styles from '../styles/desktop.module.scss';
@@ -36,6 +37,7 @@ useEffect(() => {
   return (
     <div className={styles.container} ref={desktopRef}>
       <div className={styles.space}>
+        <RecycleIcon />
         {items.map((e: any) => {
           if (Object.keys(e).length) {
             return (

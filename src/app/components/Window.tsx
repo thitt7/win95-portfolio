@@ -11,7 +11,7 @@ import asyncDelay from '@/lib/asyncDelay';
 
 import styles from '../styles/window.module.scss';
 
-const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task: any, i: number }) => {
+const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task: any, i?: number }) => {
 
     const dispatch = useDispatch()
     const {tasks} = useSelector((state: any) => state.program, shallowEqual)

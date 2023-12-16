@@ -9,18 +9,6 @@
         "filename": "networkneighborhood.exe",
         "permissions": "r"
     },
-    "recycle": {
-        "title": "Recycle Bin",
-        "name": "recycle",
-        "body": "",
-        "toolbar": "",
-        "icon": "w95_32.ico",
-        "icon-full": "w95_33",
-        "type": "folder",
-        "filename": "recyclebin.exe",
-        "permissions": "r",
-        "contents": []
-    },
     "drive": {
         "title": "(C:)",
         "name": "drive",
