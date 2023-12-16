@@ -54,12 +54,12 @@ const TaskBar = () => {
 
                             const taskClick = async () => {
                                 const min = (tasks.find((obj: any) => obj.uuid === e.uuid)).min;
-                                const window = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
+                                const windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
                                 const task = (tasks.find((obj: any) => obj.uuid === e.uuid)).taskRef;
                                 const copy = document.querySelector(`[data-uuid='${e.uuid}']`) as HTMLElement;
-                                const top = window.querySelector(`.${windowStyles.title}`);
+                                const top = windowRef?.querySelector(`.${windowStyles.title}`);
 
-                                if (min) {
+                                if (min && windowRef) {
 
                                     const topX: number = top.getBoundingClientRect().left;
                                     const topY: number = top.getBoundingClientRect().top;
@@ -85,12 +85,12 @@ const TaskBar = () => {
                                     await asyncDelay(240);
                                     // copy.style.zIndex = ``;
                                     copy.style.display = '';
-                                    window.style.visibility = '';
+                                    windowRef.style.visibility = '';
 
                                     dispatch(setMin({uuid: e.uuid, min: !min}));
                                 }
 
-                                window.focus()
+                                windowRef?.focus()
                             }
 
                             if (Object.keys(e).length){

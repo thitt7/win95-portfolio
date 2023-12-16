@@ -21,13 +21,13 @@ const Programs = () => {
   return (
     <>
     
-      {
+      {/* {
         tasks.map((e: any, i: number) => {
           return (
             <ProgramWindow task={e} i={i}></ProgramWindow>
           )
         })
-      }
+      } */}
     </>
   )
 }

@@ -98,7 +98,7 @@ const RecycleIcon = () => {
           <IconPopover coords={coords} open={popover} task={task} close={close}></IconPopover>
 
           {/* {return (<ProgramWindow task={recycle}></ProgramWindow>)} */}
-          {/* {(task) ? <ProgramWindow task={task}></ProgramWindow> : null} */}
+          {(task) ? <ProgramWindow task={task}></ProgramWindow> : null}
       </>
 
     // <div>
