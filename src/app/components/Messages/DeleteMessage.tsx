@@ -1,53 +1,54 @@
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
-import { Button, Frame, Toolbar, Window, WindowContent, WindowHeader } from 'react95';
+import { WindowContent, WindowHeader } from 'react95';
 import Message from './Message';
-import asyncDelay from '@/lib/asyncDelay';
 
 import styles from '../../styles/window.module.scss';
 
 type MessageProps = {
-    task?: any, 
+    task?: any,
+    closeMessage: () => void,
     moveToRecycle: () => void
 }
 
-const DeleteMessage = ({task, moveToRecycle}: MessageProps) => {
+const DeleteMessage = ({task, closeMessage, moveToRecycle}: MessageProps) => {
 
-    const [open, setOpen] = useState(true);
-    const buttonRef = useRef<any>();
+    const closeButtonRef = useRef<any>();
 
     const capitalized = task.type.charAt(0).toUpperCase() + task.type.substring(1)
 
-    const closeMessage = () => {
-        setOpen(false);
+    const Close = () => {
+        // setOpen(false);
+        closeMessage();
         moveToRecycle();
     }
 
     useEffect(() => {
-        buttonRef.current ? buttonRef.current.focus() : '';
-      })
+        closeButtonRef.current ? closeButtonRef.current.focus() : '';
+    })
 
     return (
         <>
-            {
-                open ? <Message>
-                    <WindowHeader className={styles.title}>
-                        <div className={styles.top}> <span>Confirm {capitalized} Delete</span> </div>
-                        <div className={styles.controlBtns}>
-                            <button onClick={()=>setOpen(false)}> <span className={styles.close} /> </button>
+            <Message>
+                <WindowHeader className={styles.title}>
+                    <div className={styles.top}> <span>Confirm {capitalized} Delete</span> </div>
+                    <div className={styles.controlBtns}>
+                        <button onClick={() => closeMessage()}> <span className={styles.close} /> </button>
+                    </div>
+                </WindowHeader>
+                <WindowContent className={styles.content}>
+                    <div className={styles.contentContainer}>
+                        <figure><img src={task.type == 'folder' ? '/w95_53.ico' : '/w95_52.ico'} /></figure>
+                        <div className={styles.body}>
+                            {task.type == "file" ? <>Are you sure you want to send '{task.title}' to the Recycle Bin?</> : null}
+                            {task.type == "folder" ? <>Are you sure you want to remove the folder '{task.title}' and move all its contents to the Recycle Bin?</> : null}
                         </div>
-                    </WindowHeader>
-                    <WindowContent className={styles.content}>
-                        <div className={styles.contentContainer}>
-                            <figure><img src={task.type == 'folder' ? '/w95_53.ico' : '/w95_52.ico'} /></figure>
-                            <div className={styles.body}>
-                                {task.type == "file" ? <>Are you sure you want to send '{task.title}' to the Recycle Bin?</> : null}
-                                {task.type == "folder" ? <>Are you sure you want to remove the folder '{task.title}' and move all its contents to the Recycle Bin?</> : null}
-                            </div>
-                        </div>
-                        <button ref={buttonRef} onClick={closeMessage} tabIndex={0}>OK</button>
-                    </WindowContent>
-                </Message> : null
-            }
+                    </div>
+                    <div className={styles.buttons}>
+                        <button ref={closeButtonRef} onClick={Close} tabIndex={1}>Yes</button>
+                        <button onClick={() => closeMessage()} tabIndex={2}>No</button>
+                    </div>
+                </WindowContent>
+            </Message>
         </>
     )
 }

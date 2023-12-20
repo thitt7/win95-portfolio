@@ -45,7 +45,7 @@ const TaskBar = () => {
                                 if (el && !ref.current[e.uuid]) {
                                   ref.current[e.uuid] = el;
                                   const windowRef = (tasks.find((obj: any) => obj.uuid === e.uuid)).windowRef;
-                                  if (!windowRef) {dispatch(setTaskRef({uuid: e.uuid, ref: el}))}
+                                  if (!windowRef) { dispatch(setTaskRef({uuid: e.uuid, ref: el})) }
                                 } 
                                 // else { delete ref.current[e.uuid] }
                               }

@@ -35,6 +35,7 @@ const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task
 
         await asyncDelay(1)
         el?.focus()
+
       }
 
       // const setCopy = (el: any) => {
@@ -73,9 +74,9 @@ const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task
 
       const focusHandler = async () => {
         const taskRef = (tasks.find((obj: any) => obj.uuid === task.uuid)).taskRef;
-        const focused = taskRef.getAttribute("data-active")
+        const focused = taskRef?.getAttribute("data-active");
 
-        focused === 'false' ? taskRef.setAttribute("data-active", true) : taskRef.setAttribute("data-active", false);
+        focused === 'false' ? taskRef?.setAttribute("data-active", true) : taskRef?.setAttribute("data-active", false);
       }
 
       const Copy = () => {
@@ -207,7 +208,7 @@ const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task
           <>
             <Copy />
             <Draggable key={task.uuid} handle={`[class*=title]`} disabled={maxState[task.uuid]}>
-              <div className={styles.container} ref={setRef} tabIndex={i} onFocus={focusHandler} onBlur={focusHandler}>
+              <div id={task.id} className={styles.container} ref={setRef} tabIndex={i || 1} onFocus={focusHandler} onBlur={focusHandler}>
                 <Resizable>
                   <Window resizable className={''} id={`${styles['window']}`} onDrag={() => { console.log('DRAGGINGGG') }}>
                     <WindowHeader ref={setTopRef} className={styles.title} onDoubleClick={Maximize}>
@@ -225,8 +226,8 @@ const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task
                     </WindowHeader>
                     <Toolbar task={task}></Toolbar>
                     <WindowContent className={styles.content}>
+                      {children}
                       <article dangerouslySetInnerHTML={{ __html: task.body }}></article>
-                      <p>UUID: {task.uuid}</p>
                     </WindowContent>
                     { task.contents ? 
                       <Frame variant='well' className={styles.footer}> {`${task.contents.length} object(s)`} </Frame> :

@@ -18,16 +18,20 @@ const Programs = () => {
   //   // tasks.forEach((element: any) => { console.log(element) });
   // })
 
+  const exclude = ['recycle']
+
   return (
     <>
     
-      {/* {
+      {
         tasks.map((e: any, i: number) => {
-          return (
-            <ProgramWindow task={e} i={i}></ProgramWindow>
-          )
+          if (!exclude.includes(e.name)) {
+            return (
+              <ProgramWindow task={e} i={i}></ProgramWindow>
+            )
+          }
         })
-      } */}
+      }
     </>
   )
 }
