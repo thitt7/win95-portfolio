@@ -25,7 +25,7 @@ export function Desktop() {
 
   const desktopRef = useRef<any>()
 
-  const {items} = useSelector((state) => state.desktop);
+  const {items} = useSelector((state: any) => state.desktop);
   const dispatch = useDispatch();
 
 useEffect(() => {

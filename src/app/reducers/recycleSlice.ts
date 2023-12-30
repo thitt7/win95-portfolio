@@ -14,20 +14,21 @@ export const recycleSlice = createSlice({
         // const program = programs[`${action.payload as keyof typeof programs}`];
         state.binItems.push(action.payload);
     },
-    remove: (state, action: any) => {
-        const copy = JSON.parse(JSON.stringify(state.binItems))
-        copy.map((e: any) => {
-          console.log('obj: ', JSON.stringify(e))
-          console.log('PAYLOAD: ', JSON.stringify(action.payload))
-          console.log('EQUALS: ', JSON.stringify(e) == JSON.stringify(action.payload))
-        })
-        const i = state.binItems.findIndex((obj: any) => JSON.stringify(obj) == JSON.stringify(action.payload));
-        console.log('i in remove fn: ', i)
-        state.binItems.splice(i, 1)
-    }
+    remove: (state, action: {payload: number[]}) => {
+        // const i = state.binItems.findIndex((obj: any) => JSON.stringify(obj) == JSON.stringify(action.payload));
+        console.log('in remove action!!!')
+        // state.binItems.splice(action.payload, 1)
+        if (Array.isArray(action.payload)) {
+          for (let i = action.payload.length - 1; i >= 0; i--) {
+            state.binItems.splice(action.payload[i], 1);
+          }
+        }
+        else {state.binItems.splice(action.payload, 1)}
+    }, 
+    empty: (state) => { state.binItems = [] }
   },
 })
 
-export const { set, add, remove } = recycleSlice.actions;
+export const { set, add, remove, empty } = recycleSlice.actions;
 
 export default recycleSlice.reducer;

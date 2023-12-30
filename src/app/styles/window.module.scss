@@ -68,48 +68,63 @@
         scrollbar-width: none;
         background-color: transparent;
 
-        .item {
-          display: flex;
-          flex-flow: row nowrap;
-          gap: 5px;
-          width: fit-content;
-          align-items: center;
-          background: none !important;
-          background-color: none !important;
-          border: none !important;
-  
-          &:focus {
-            background: red;
-            .text {
-              border: #0f0f0f dotted 1.5px;
+      }
+
+      .item {
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 5px;
+        width: fit-content;
+        align-items: center;
+        background: none !important;
+        background-color: none !important;
+        border: none !important;
+
+        // &:focus {
+        //   background: red;
+        //   .text {
+        //     border: #0f0f0f dotted 1.5px;
+        //   }
+        // }
+
+        // &:checked {
+        //   .text {
+        //     background: $highlight;
+        //     border: white dotted 1.5px;
+        //     color: white;
+        //   }
+        // }
+
+        &.selected {background: blue;
+          img {
+              filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg)
+                saturate(400%) contrast(0.9);
             }
-          }
-  
-          &:checked {
-            .text {
-              background: $highlight;
-              border: white dotted 1.5px;
-              color: white;
-            }
-          }
-  
-          figure {
-            width: 20px;
-            height: 20px;
-  
-            img {width: 100%;}
-          }
-  
+
           .text {
-            color: black;
-            border: 1.5px solid rgba(0, 0, 0, 0);
-            padding: 2px;
-            align-self: stretch;
-            display: flex;
-            align-items: center;
+              border: white dotted 1.5px;
+              background: $highlight;
+              color: white;
+              margin: 0;
           }
+
         }
 
+        figure {
+          width: 20px;
+          height: 20px;
+
+          img {width: 100%;}
+        }
+
+        .text {
+          color: black;
+          border: 1.5px solid rgba(0, 0, 0, 0);
+          padding: 2px;
+          align-self: stretch;
+          display: flex;
+          align-items: center;
+        }
       }
     }
 

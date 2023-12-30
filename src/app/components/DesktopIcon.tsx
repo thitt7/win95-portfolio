@@ -27,7 +27,7 @@ const DesktopIcon = ({task}: {task: any}) => {
     const [popover, setPopover] = useState(false);
     const [coords, setCoords] = useState<{x: number, y: number}>({x: 0, y: 0})
 
-    const tasks = useSelector((state) => state.program.tasks);
+    const tasks = useSelector((state: any) => state.program.tasks);
     const dispatch = useDispatch();
 
     useEffect(() => {

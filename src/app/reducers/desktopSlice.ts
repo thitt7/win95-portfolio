@@ -16,14 +16,16 @@ export const desktopSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-    set: (state, action: any) => {
+    set: (state: any, action: any) => {
         state.items = [...state.items, ...action.payload]
       },
-    add: (state, action: any) => {
-        const program = programs[`${action.payload as keyof typeof programs}`];
-        state.items.push(program);
+    add: (state: any, action: {payload: {} | []}) => {
+      if (Array.isArray(action.payload)) {
+        state.items = [...state.items, ...action.payload]
+      }
+      else {state.items.push(action.payload)}
     },
-    remove: (state, action: any) => {
+    remove: (state: any, action: any) => {
         // const copy = JSON.parse(JSON.stringify(state.items))
         // copy.map((e: any) => {
         //   console.log('obj: ', JSON.stringify(e))
