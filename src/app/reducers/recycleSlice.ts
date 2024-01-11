@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import programs from '../../../public/programs.json';
 
 const initialState = {binItems: []};
 

@@ -6,11 +6,12 @@ import styles from '../../styles/window.module.scss';
 
 type MessageProps = {
     task?: any,
+    selected?: any[],
     closeMessage: () => void,
     moveToRecycle: () => void
 }
 
-const DeleteMessage = ({task, closeMessage, moveToRecycle}: MessageProps) => {
+const DeleteMessage = ({task, selected, closeMessage, moveToRecycle}: MessageProps) => {
 
     const closeButtonRef = useRef<any>();
 
@@ -24,6 +25,7 @@ const DeleteMessage = ({task, closeMessage, moveToRecycle}: MessageProps) => {
 
     useEffect(() => {
         closeButtonRef.current ? closeButtonRef.current.focus() : '';
+        console.log('SELECTED IN DMESSAGE: ', selected)
     })
 
     return (

@@ -1,9 +1,9 @@
 import React, {useState, useRef, useEffect, useCallback, cloneElement} from 'react';
 import { Frame, Window, WindowContent, WindowHeader } from 'react95';
-import { close, setMin, setMax, setWindowRef, setCopyRef, focus } from '../reducers/programSlice';
+import { close, setMin, setMax, setWindowRef, setCopyRef, focus } from '../../reducers/programSlice';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import Draggable from 'react-draggable';
-import ProgramWindow from './Window';
+import ProgramWindow from '../Window';
 
 const Programs = () => {
 

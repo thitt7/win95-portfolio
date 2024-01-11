@@ -1,25 +1,27 @@
+'use client';
+
 import React, {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
-import programs from '../../../public/programs.json';
+import programs from '../../../../public/programs.json';
 import startTask from '@/lib/startTask.tsx';
-import IconPopover from './ContextMenus/IconPopover';
-import ContextPopover from './ContextMenus/Popover';
+import * as desktop from '../../reducers/desktopSlice';
+import IconPopover from '../ContextMenus/IconPopover';
 
-import styles from '../styles/desktop.module.scss';
+import styles from '@styles/desktop.module.scss';
 
 type GenericDragEvent<T = HTMLElement> = React.DragEvent<T>
 
 type Program = {
-    title: string,
-    icon: string,
-    open: boolean,
-
+    task: any,
+    selected: [],
+    iconRef: any,
+    onClick: any
 }
 
-const DesktopIcon = ({task}: {task: any}) => {
+const DesktopIcon = ({task, selected, iconRef, onClick}: Program) => {
 
-    const iconRef = useRef<HTMLAnchorElement>()
+    // const iconRef = useRef<HTMLAnchorElement>()
 
     // iconRef.current!.addEventListener("touchend", (e: any) => startTask(e));
 
@@ -32,18 +34,18 @@ const DesktopIcon = ({task}: {task: any}) => {
 
     useEffect(() => {
         //   iconRef.current ? iconRef.current!.addEventListener("touchend", (e: any) => startTask(e)) : '';
-        const icon = iconRef.current;
+        const icon = iconRef?.current;
+        // const icon = iconRef.current;
         if (task.name == 'recycle' && icon) {
-            icon.style.color = 'teal';
             icon.addEventListener('dragenter', dragEnterHandler);
             icon.addEventListener('dragover', dragOverHandler);
             icon.addEventListener('drop', dropHandler);
         }
 
         return () => {
-            icon.removeEventListener('dragenter', dragEnterHandler);
-            icon.removeEventListener('dragover', dragOverHandler);
-            icon.removeEventListener('drop', dropHandler);
+            icon?.removeEventListener('dragenter', dragEnterHandler);
+            icon?.removeEventListener('dragover', dragOverHandler);
+            icon?.removeEventListener('drop', dropHandler);
         };
     })
 
@@ -51,6 +53,8 @@ const DesktopIcon = ({task}: {task: any}) => {
         e.preventDefault();
         setCoords({x: e.clientX, y: e.clientY})
         setPopover(true);
+        dispatch(desktop.setSelected([...document.querySelectorAll(`.${styles.icon}:not([data-disabled])`)].map((e) => { return e?.classList?.contains(styles.selected) })))
+        
     }
 
     const dragStartHandler = (e: React.DragEvent) => {
@@ -79,13 +83,13 @@ const DesktopIcon = ({task}: {task: any}) => {
 
   return (
       <>
-          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={() => startTask(task)} onDragStart={dragStartHandler} onContextMenu={secondaryclickHandler}>
+          <Link ref={iconRef} href="#" className={styles.icon} onDoubleClick={() => startTask(task)} onDragStart={dragStartHandler} onContextMenu={secondaryclickHandler} onClick={onClick}>
               <img className={styles.img} src={`/${task.icon}`} alt="" />
               <div className={styles.border}>
                   <p className={styles.text} dangerouslySetInnerHTML={{ __html: task.title }}></p>
               </div>
           </Link>
-          <IconPopover coords={coords} open={popover} task={task} close={close}></IconPopover>
+          <IconPopover coords={coords} open={popover} task={task} selected={selected} close={close}></IconPopover>
       </>
   )
 }

@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import programs from '../../../public/programs.json';
 
-const initialState = {items: [
+const initialState = {
+  items: [
     programs['neighborhood'],
     // programs['recycle'],
     programs['drive'],
@@ -10,7 +11,9 @@ const initialState = {items: [
     programs['github'],
     programs['linkedin'],
     programs['codepen'],
-]};
+  ],
+  selected: []
+};
 
 export const desktopSlice = createSlice({
   name: 'items',
@@ -18,29 +21,31 @@ export const desktopSlice = createSlice({
   reducers: {
     set: (state: any, action: any) => {
         state.items = [...state.items, ...action.payload]
-      },
+    },
     add: (state: any, action: {payload: {} | []}) => {
       if (Array.isArray(action.payload)) {
         state.items = [...state.items, ...action.payload]
       }
       else {state.items.push(action.payload)}
     },
-    remove: (state: any, action: any) => {
-        // const copy = JSON.parse(JSON.stringify(state.items))
-        // copy.map((e: any) => {
-        //   console.log('obj: ', JSON.stringify(e))
-        //   console.log('PAYLOAD: ', JSON.stringify(action.payload))
-        //   console.log('EQUALS: ', JSON.stringify(e) == JSON.stringify(action.payload))
-        // })
+    remove: (state: any, action: {payload: {} | number[]}) => {
+        
+      if (Array.isArray(action.payload)) {
+        for (let i = action.payload.length - 1; i >= 0; i--) {
+          state.items.splice(action.payload[i], 1);
+        }
+      }
+      else {
         const i = state.items.findIndex((obj: any) => JSON.stringify(obj) == JSON.stringify(action.payload));
-        // const j = copy.indexOf(action.payload)
-        console.log('i in remove fn: ', i)
         state.items.splice(i, 1)
-        // delete state.items[i];
+      }
+    },
+    setSelected: (state: any, action: {payload: boolean[]}) => {
+      state.selected = action.payload;
     }
   },
 })
 
-export const { set, add, remove } = desktopSlice.actions;
+export const { set, add, remove, setSelected } = desktopSlice.actions;
 
 export default desktopSlice.reducer;

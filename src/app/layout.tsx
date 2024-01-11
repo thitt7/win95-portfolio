@@ -1,6 +1,6 @@
 import './styles/globals.scss';
 import Providers from './theme-provider';
-import { Desktop } from './components/desktop';
+import { Desktop } from './components/Desktop/desktop';
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
   return (

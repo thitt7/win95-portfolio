@@ -2,15 +2,15 @@ import React, {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import startTask from '@/lib/startTask.tsx';
-import RecycleIconPopover from './ContextMenus/RecycleIconPopover';
-import RecycleBinPopover from './ContextMenus/RecycleBinPopover';
-import ProgramWindow from './Window';
-import * as desktop from '../reducers/desktopSlice';
-import * as recycleBin from '../reducers/recycleSlice';
+import RecycleIconPopover from '../ContextMenus/RecycleIconPopover';
+import RecycleBinPopover from '../ContextMenus/RecycleBinPopover';
+import ProgramWindow from '../Window';
+import * as desktop from '../../reducers/desktopSlice';
+import * as recycleBin from '../../reducers/recycleSlice';
 import asyncDelay from '@/lib/asyncDelay';
 
-import styles from '../styles/desktop.module.scss';
-import windowStyles from '../styles/window.module.scss';
+import styles from '@styles/desktop.module.scss';
+import windowStyles from '@styles/window.module.scss';
 
 type GenericDragEvent<T = HTMLElement> = React.DragEvent<T>;
 
@@ -88,10 +88,8 @@ const RecycleIcon = () => {
 
     const dropHandler = (e: any) => {
         e.preventDefault();
-        const eventData = e.dataTransfer.getData('text/plain')
-        // console.log('EVENT TRANSFER: ', eventData)
-        const dropTask = JSON.parse(eventData)
-        console.log('DROP TASK: ', dropTask)
+        const eventData = e.dataTransfer.getData('text/plain');
+        const dropTask = JSON.parse(eventData);
         dispatch(desktop.remove(dropTask));
         dispatch(recycleBin.add(dropTask));
     }
@@ -134,7 +132,6 @@ const RecycleIcon = () => {
                     if (prop == String(i)) {
                         itemsArr[prop]?.classList.add(windowStyles.selected);
                         itemsArr.current.selected[prop] = true;
-                        console.log(itemsArr.current.selected)
                     }
                     else {
                         itemsArr[prop]?.classList ? itemsArr[prop]?.classList.remove(windowStyles.selected) : ''
@@ -145,7 +142,6 @@ const RecycleIcon = () => {
             else {
                 itemsArr[i].classList.add(windowStyles.selected);
                 itemsArr.current.selected[i] = true;
-                console.log(itemsArr.current.selected)
             }
         }
     }
@@ -155,18 +151,16 @@ const RecycleIcon = () => {
     }
 
     useEffect(() => {
-      console.log('ITEMS ARR: ', itemsArr)
+    //   console.log('ITEMS ARR: ', itemsArr)
       itemsArr.current.selected = Array(binItems.length).fill(false)
     
         const handleClick = (event) => {
-            console.log('global click handler', event);
+            // console.log('global click handler', event);
             // const anySelected = itemsArr.current.selected.some(val => val === true);
             const anySelected = Object.values(itemsArr).some(val => {val?.classList?.contains(windowStyles.selected)})
             const isNotWindowItem = !event.target.closest(`.${windowStyles.item}`) && !event.target.classList.contains(windowStyles.item)
-            console.log(binItems.length, !binPopover, anySelected, isNotWindowItem);
 
             if (binItems.length && anySelected && isNotWindowItem) {
-                console.log('resetting selected vals...')
                 for (const prop in itemsArr) {
                     itemsArr.current.selected[prop] = false;
                     itemsArr[prop]?.classList ? itemsArr[prop]?.classList.remove(windowStyles.selected) : ''
@@ -186,7 +180,7 @@ const RecycleIcon = () => {
 
   return (
       <>
-          <Link ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={Start} onContextMenu={iconHandler}>
+          <Link data-disabled ref={iconRef} href="javascript:void(0)" className={styles.icon} onDoubleClick={Start} onContextMenu={iconHandler}>
               <img className={styles.img} src={binItems.length ? `/${recycle.iconFull}` : `/${recycle.icon}`} alt="" />
               <div className={styles.border}>
                   <p className={styles.text} >{recycle.title}</p>
@@ -201,7 +195,7 @@ const RecycleIcon = () => {
                           return (
                             <>
 
-                            <div ref={(e) => setItemRef(e, i)} className={windowStyles.item} tabIndex={i+1} onClickCapture={(e) => selectItem(e, i)} onContextMenu={binHandler}>
+                            <div ref={(e) => setItemRef(e, i)} className={windowStyles.item} tabIndex={i+1} onClick={(e) => selectItem(e, i)} onContextMenu={binHandler}>
                                 <figure><img src={item.icon} alt={`${item.title} icon`} /></figure>
                                 <div className={windowStyles.text}>{item.filename}</div>
                             </div>
