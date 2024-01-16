@@ -18,11 +18,12 @@
         "name": "next"
       }
     ],
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
-      "@components/*": ["components/*"],
-      "@styles/*": ["app/styles/*"]
+      "@components/*": ["app/components/*"],
+      "@styles/*": ["app/styles/*"],
+      "@public/*": ["../public/*"]
     },
     "allowImportingTsExtensions": true,
   },

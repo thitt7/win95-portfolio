@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { set } from '../app/reducers/programSlice';
 import store from '../app/store';
 
-import programs from '../../public/programs.json';
+import programs from '@components/Programs/Programs';
 
 const startTask = (task?: any, name?: string) => {
     const program: any = programs[`${name as keyof typeof programs}`];

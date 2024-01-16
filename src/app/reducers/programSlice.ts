@@ -10,7 +10,6 @@ import { createSlice } from '@reduxjs/toolkit';
 type TestState = Array<any>;
 
 const initialState = {tasks: []};
-// const initialCounterState = { counter: 0, showCounter: true };
 
 export const programSlice = createSlice({
   name: 'tasks',

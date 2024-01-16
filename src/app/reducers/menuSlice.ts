@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import programs from '../../../public/programs.json';
+// import programs from '../../../public/programs.json';
+import programs from '@components/Programs/Programs';
 
 const initialState = {menu: [
     programs['resume'],

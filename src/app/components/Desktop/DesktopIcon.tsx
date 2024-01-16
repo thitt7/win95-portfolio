@@ -3,7 +3,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
-import programs from '../../../../public/programs.json';
 import startTask from '@/lib/startTask.tsx';
 import * as desktop from '../../reducers/desktopSlice';
 import IconPopover from '../ContextMenus/IconPopover';
@@ -14,12 +13,13 @@ type GenericDragEvent<T = HTMLElement> = React.DragEvent<T>
 
 type Program = {
     task: any,
-    selected: [],
     iconRef: any,
-    onClick: any
+    onClick: any,
+    onMouseDown: any,
+    selectIcon: any
 }
 
-const DesktopIcon = ({task, selected, iconRef, onClick}: Program) => {
+const DesktopIcon = ({task, iconRef, onClick, onMouseDown, selectIcon}: Program) => {
 
     // const iconRef = useRef<HTMLAnchorElement>()
 
@@ -51,10 +51,10 @@ const DesktopIcon = ({task, selected, iconRef, onClick}: Program) => {
 
     const secondaryclickHandler = (e: React.MouseEvent) => {
         e.preventDefault();
-        setCoords({x: e.clientX, y: e.clientY})
+        selectIcon();
+        setCoords({x: e.clientX, y: e.clientY});
         setPopover(true);
-        dispatch(desktop.setSelected([...document.querySelectorAll(`.${styles.icon}:not([data-disabled])`)].map((e) => { return e?.classList?.contains(styles.selected) })))
-        
+        // dispatch(desktop.setSelected([...document.querySelectorAll(`.${styles.icon}:not([data-disabled])`)].map((e) => { return e?.classList?.contains(styles.selected) })));
     }
 
     const dragStartHandler = (e: React.DragEvent) => {
@@ -63,13 +63,9 @@ const DesktopIcon = ({task, selected, iconRef, onClick}: Program) => {
         console.log('dragging')
     }
 
-    const dragEnterHandler = (e: Event) => {
-        e.preventDefault();
-    }
+    const dragEnterHandler = (e: Event) => { e.preventDefault(); }
 
-    const dragOverHandler = (e: Event) => {
-        e.preventDefault();
-    }
+    const dragOverHandler = (e: Event) => { e.preventDefault(); }
 
     const dropHandler = (e: any) => {
         e.preventDefault();
@@ -83,13 +79,13 @@ const DesktopIcon = ({task, selected, iconRef, onClick}: Program) => {
 
   return (
       <>
-          <Link ref={iconRef} href="#" className={styles.icon} onDoubleClick={() => startTask(task)} onDragStart={dragStartHandler} onContextMenu={secondaryclickHandler} onClick={onClick}>
+          <Link ref={iconRef} href="#" className={styles.icon} onDoubleClick={() => startTask(task)} onDragStart={dragStartHandler} onContextMenu={secondaryclickHandler} onClick={onClick} onMouseDown={onMouseDown}>
               <img className={styles.img} src={`/${task.icon}`} alt="" />
               <div className={styles.border}>
                   <p className={styles.text} dangerouslySetInnerHTML={{ __html: task.title }}></p>
               </div>
           </Link>
-          <IconPopover coords={coords} open={popover} task={task} selected={selected} close={close}></IconPopover>
+          <IconPopover coords={coords} open={popover} task={task} close={close}></IconPopover>
       </>
   )
 }

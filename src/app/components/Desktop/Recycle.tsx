@@ -34,11 +34,12 @@ const recycle = {
     contents: []
 }
 
-const RecycleIcon = () => {
+const RecycleIcon = ({reset} : {reset: any}) => {
 
     const iconRef = useRef<HTMLAnchorElement>()
 
     const {tasks} = useSelector((state: any) => state.program);
+    const {items, selected} = useSelector((state: any) => state.desktop);
     const {binItems} = useSelector((state: any) => state.recycle);
     
     const [popover, setPopover] = useState(false);
@@ -48,7 +49,25 @@ const RecycleIcon = () => {
 
     const dispatch = useDispatch();
 
-    const task = tasks.find((obj: any) => obj.name == 'recycle')
+    const task = tasks.find((obj: any) => obj.name == 'recycle');
+
+    const moveToRecycle = () => {
+
+        let desktopItems: any = [];
+        let indexes: number[] = [];
+        console.log(selected)
+
+        for (let i = 0; i < selected.length; i++) {
+            if (selected[i] === true) {
+                indexes.push(i);
+                desktopItems.push(items[i])
+            }
+        }
+
+        dispatch(desktop.remove(indexes));
+        dispatch(recycleBin.add(desktopItems));
+        reset();
+    }
 
     useEffect(() => {
 
@@ -88,10 +107,11 @@ const RecycleIcon = () => {
 
     const dropHandler = (e: any) => {
         e.preventDefault();
-        const eventData = e.dataTransfer.getData('text/plain');
-        const dropTask = JSON.parse(eventData);
-        dispatch(desktop.remove(dropTask));
-        dispatch(recycleBin.add(dropTask));
+        // const eventData = e.dataTransfer.getData('text/plain');
+        // const dropTask = JSON.parse(eventData);
+        // dispatch(desktop.remove(dropTask));
+        // dispatch(recycleBin.add(dropTask));
+        moveToRecycle();
     }
 
     const close = () => {
@@ -101,11 +121,9 @@ const RecycleIcon = () => {
 
 
     const selectItem = (e: React.MouseEvent, i: number) => { 
-        // itemsArr.current.selected[i] = true;
       
         itemsArr.current.selected[i] = true;
         itemsArr[i].classList.add(windowStyles.selected);
-
         
         if (e.ctrlKey) {}
 
@@ -155,9 +173,9 @@ const RecycleIcon = () => {
       itemsArr.current.selected = Array(binItems.length).fill(false)
     
         const handleClick = (event) => {
-            // console.log('global click handler', event);
+            // console.log('recycle click handler', event);
             // const anySelected = itemsArr.current.selected.some(val => val === true);
-            const anySelected = Object.values(itemsArr).some(val => {val?.classList?.contains(windowStyles.selected)})
+            const anySelected = Object.values(itemsArr).some(e => {return e?.classList?.contains(windowStyles.selected)})
             const isNotWindowItem = !event.target.closest(`.${windowStyles.item}`) && !event.target.classList.contains(windowStyles.item)
 
             if (binItems.length && anySelected && isNotWindowItem) {

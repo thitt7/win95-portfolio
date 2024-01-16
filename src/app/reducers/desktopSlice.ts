@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import programs from '../../../public/programs.json';
+import programs from '@components/Programs/Programs';
 
 const initialState = {
   items: [
@@ -11,6 +11,7 @@ const initialState = {
     programs['github'],
     programs['linkedin'],
     programs['codepen'],
+    programs['doom'],
   ],
   selected: []
 };

@@ -227,7 +227,10 @@ const ProgramWindow = ({ children, task, i }: { children?: React.ReactNode, task
                     <Toolbar task={task}></Toolbar>
                     <WindowContent className={styles.content}>
                       {children}
-                      <article dangerouslySetInnerHTML={{ __html: task.body }}></article>
+                      {/* if body property is static HTML string, render it inside the window, else call the react component*/}
+                      {
+                        typeof task.body === 'string' ? <article dangerouslySetInnerHTML={{ __html: task.body }}></article> : task.body()
+                      }
                     </WindowContent>
                     { task.contents ? 
                       <Frame variant='well' className={styles.footer}> {`${task.contents.length} object(s)`} </Frame> :

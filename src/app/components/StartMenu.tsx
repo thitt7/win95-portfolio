@@ -6,8 +6,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { set, add, remove } from '../reducers/menuSlice';
 import startTask from '@/lib/startTask';
 
-import programs from '../../../public/programs.json';
-
 import styles from '../styles/menu.module.scss';
 
 const startStyles = {
@@ -32,21 +30,8 @@ const StartMenu = () => {
   }
 
   useEffect(() => {
-    const resume: any = programs['resume'];
-    const git: any = programs['github'];
-    const ie: any = programs['iexplorer'];
-    const settings: any = programs['settings'];
-   
-    console.log('MENU SHIT: ', [resume, git, ie, settings])
-    console.log('MENU SHIT: ', JSON.stringify([resume, git, ie, settings]))
     // console.log('MENU: ', menu)
   }, [])
-
-  // useEffect(() => {
-  //   console.log('MENU: ', menu)
-  // })
-  
-  
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>

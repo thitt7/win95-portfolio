@@ -9,9 +9,12 @@ export const recycleSlice = createSlice({
     set: (state, action: any) => {
         state.binItems = [...state.binItems, ...action.payload]
       },
-    add: (state, action: any) => {
-        // const program = programs[`${action.payload as keyof typeof programs}`];
-        state.binItems.push(action.payload);
+    add: (state, action: {payload: {} | []}) => {
+        // state.binItems.push(action.payload);
+        if (Array.isArray(action.payload)) {
+          state.binItems = [...state.binItems, ...action.payload]
+        }
+        else {state.binItems.push(action.payload);}
     },
     remove: (state, action: {payload: number[]}) => {
         // const i = state.binItems.findIndex((obj: any) => JSON.stringify(obj) == JSON.stringify(action.payload));

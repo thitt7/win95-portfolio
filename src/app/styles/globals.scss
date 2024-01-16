@@ -84,6 +84,18 @@ a {
   iframe {aspect-ratio: 8.5/11;}
 }
 
+#doom {
+  [class*=window_resizable] {
+    width: 850px;
+    height: 735px;
+  }
+  iframe {
+    aspect-ratio: initial;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 [class*=window_container] [data-testid=resizeHandle] {
   bottom: 5px;
   right: 5px;

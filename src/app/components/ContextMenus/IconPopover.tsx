@@ -18,31 +18,16 @@ type popoverProps = {
     coords: {x: number, y: number},
     open: boolean,
     task: any,
-    selected: [],
     close: () => void
 }
 
 const IconPopover = ({coords, open, task, close}: popoverProps) => {
 
-    const {selected} = useSelector((state: any) => state.desktop);
+    const {items, selected} = useSelector((state: any) => state.desktop);
 
     const [message, setMessage] = useState(false);
 
     const dispatch = useDispatch();
-
-    // let initialSelected, selectedEx, selectedRef;
-    // if (typeof document !== 'undefined' && !selected.length) {
-    //     selectedEx = [...document.querySelectorAll(`.${desktopStyles.icon}:not([data-disabled])`)].map((e)=>{return e?.classList?.contains(desktopStyles.selected)});
-    //     // selectedRef = useRef([...document.querySelectorAll(`.${desktopStyles.icon}:not([data-disabled])`)].map((e)=>{return e?.classList?.contains(desktopStyles.selected)}));
-    //     initialSelected = [...document.querySelectorAll(`.${desktopStyles.icon}:not([data-disabled])`)].map((e) => { return e?.classList?.contains(desktopStyles.selected) });
-    //     console.log('INITIALSELECTED: ', initialSelected)
-    //     dispatch(desktop.setSelected(initialSelected))
-    //     // selectedRef = useRef(initialSelected);
-    //     selectedRef = useRef([...document.querySelectorAll(`.${desktopStyles.icon}:not([data-disabled])`)].map((e) => { return e?.classList?.contains(desktopStyles.selected) }));
-    //     console.log('SELECTED REF: ', selectedRef.current)
-    // }
-    
-    // console.log('SEL: ', selectedEx)
 
     const Open = () => {
         close();
@@ -58,9 +43,19 @@ const IconPopover = ({coords, open, task, close}: popoverProps) => {
     const closeMessage = () => setMessage(false)
 
     const moveToRecycle = () => {
-        // console.log('SELECTED: ', selected)
-        dispatch(desktop.remove(task));
-        dispatch(recycleBin.add(task));
+
+        let desktopItems: any = []
+        let indexes: number[] = [];
+
+        for (let i = 0; i < selected.length; i++) {
+            if (selected[i] === true) {
+                indexes.push(i);
+                desktopItems.push(items[i])
+            }
+        }
+
+        dispatch(desktop.remove(indexes));
+        dispatch(recycleBin.add(desktopItems));
     }
 
     // useEffect(() => {
