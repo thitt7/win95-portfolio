@@ -268,14 +268,14 @@ const Resizable = ({children}: {children: React.ReactNode}) => {
     // <div className={styles.wrapper}>
         <div ref={Box} className={styles.resizable}>
             {children}
-            <span ref={Top} className='resizable-n'></span>
-            <span ref={Right} className='resizable-e'></span>
-            <span ref={Bottom} className='resizable-s'></span>
-            <span ref={Left} className='resizable-w'></span>
-            <span ref={NE} className='resizable-ne'></span>
-            <span ref={SE} className='resizable-se'></span>
-            <span ref={NW} className='resizable-nw'></span>
-            <span ref={SW} className='resizable-sw'></span>
+            <span ref={Top} id={styles['n']} className={styles.handle}></span>
+            <span ref={Right} id={styles['e']} className={styles.handle}></span>
+            <span ref={Bottom} id={styles['s']} className={styles.handle}></span>
+            <span ref={Left} id={styles['w']} className={styles.handle}></span>
+            <span ref={NE} id={styles['ne']} className={styles.handle}></span>
+            <span ref={SE} id={styles['se']} className={styles.handle}></span>
+            <span ref={NW} id={styles['nw']} className={styles.handle}></span>
+            <span ref={SW} id={styles['sw']} className={styles.handle}></span>
         </div>
     // </div>
   )

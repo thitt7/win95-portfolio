@@ -77,7 +77,7 @@ const IconPopover = ({coords, open, task, close}: popoverProps) => {
         <li data-disabled>Cut</li>
         <li data-disabled>Copy</li>
         <Separator className={styles.divider}/>
-        <li>Add to Start</li>
+        {/* <li>Add to Start</li> */}
         <li data-disabled>Create Shortcut</li>
         <li onClick={Delete}>Delete</li>
         <li>Rename</li>
