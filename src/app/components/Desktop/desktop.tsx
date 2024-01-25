@@ -6,22 +6,20 @@ import DesktopIcon from './DesktopIcon';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import * as desktop from '../../reducers/desktopSlice';
 import startTask from '@/lib/startTask';
-// import DragSelect from '@/lib/dragSelect';
 import Programs from './Programs';
 import RecycleIcon from './Recycle';
 import StartMessage from '../Messages/StartMessage';
-import asyncDelay from '@/lib/asyncDelay';
 
 import styles from '@styles/desktop.module.scss';
 
 export function Desktop() {
   
   const [message, setMessage] = useState({
-    body: `Welcome to my portfolio! I'm Tristan Hitt, a full-stack developer who grew up in the early 2000s with Windows 95 - 2000 operating systems as my first foray into desktop computers.
-      Have a look around the desktop, start menu, etc. it's just like you remember it. I've spared no expense and tried to make this the most true to life recreation of Windows 95 
-      without actually emulating it.`,
+    body: `Welcome to my portfolio! I'm Tristan Hitt, a Full-Stack developer with a passion for JavaScript/TypeScript who grew up in the early 2000s with Windows 95 era operating systems
+     as my first glimpse into desktop computing. Have a look around and see if you can find all the goodies I've included. I've spared no expense to try and make this the most
+      immersive recreation of the classic Windows 95 without actually emulating it.`,
     type: "success",
-    title: "Warning"
+    title: "Hello World!"
   })
 
   const {items, selected} = useSelector((state: any) => state.desktop);

@@ -53,15 +53,18 @@ const StartMenu = () => {
                                     {
                                       menu.map((e: any) => {
                                         return (
-                                          <MenuListItem className={styles.item}><span role='img' aria-label={e.title}><img src={`/${e.icon}`} alt={`${e.title} icon`} /></span> <p className={styles.title}>{e.title}</p> </MenuListItem>
+                                          <MenuListItem
+                                            onClick={()=>startTask(e)}
+                                            className={styles.item}
+                                          >
+                                              <span role='img' aria-label={e.title}>
+                                              <img src={`/${e.icon}`} alt={`${e.title} icon`} />
+                                              </span> 
+                                              <p className={styles.title}>{e.title}</p>
+                                          </MenuListItem>
                                         )
                                       })
                                     }
-                                    {/* <MenuListItem className={styles.item}><span role='img' aria-label='programs'> <img src="/w95_37.ico" alt="" /> </span> <p className={styles.title}>Programs</p> </MenuListItem>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='documents'><img src="/documents-start.ico" alt="" /></span> <p className={styles.title}>Documents</p> </MenuListItem>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='settings'><img src="/w95_22.ico" alt="" /></span> <p className={styles.title}>Settings</p> </MenuListItem>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='photos'> 👨‍💻</span> <p className={styles.title}>Photos</p> </MenuListItem>
-                                    <MenuListItem className={styles.item}><span role='img' aria-label='resume'><img src="/document-0.ico" alt="" /></span> <p className={styles.title}>Resume</p> </MenuListItem> */}
                                     
                                     <Separator />
                                     <MenuListItem className={styles.item}><span role='img' aria-label='shut down'><img src="/w95_46.ico" alt="" /> </span> <p className={styles.title}>Shut Down...</p> </MenuListItem>
