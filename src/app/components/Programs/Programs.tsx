@@ -73,7 +73,7 @@ const programs = {
       title: "Resume",
       name: "resume",
       id: "resume",
-      body: "<iframe src='/resume.pdf#view=fitH' title='Resume' height='100%' width='100%' />",
+      body: "<iframe src='https://drive.google.com/file/d/1owymS8itDXYMDMaOwdRyKyOofAWjpu6j/preview#view=fitH' title='Resume' height='100%' width='100%' />",
       toolbar: "",
       icon: "document-0.ico",
       type: "file",
